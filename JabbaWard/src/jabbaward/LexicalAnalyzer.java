@@ -7,9 +7,11 @@ package jabbaward;
 
 /**
  *
- * @author Rafael
  */
 public class LexicalAnalyzer {
+    String archivoFuente;
+    String tablaSimbolos;
+    
     public void read(String source){
         
     }
