@@ -7,10 +7,14 @@ package jabbaward;
 
 /**
  *
+ * @author Rafael, Felipe & Cesar
  */
 public class LexicalAnalyzer {
     String archivoFuente;
     String tablaSimbolos;
+    public LexicalAnalyzer(String archivo){
+        archivoFuente = archivo;
+    }
     
     public void read(String source){
         
