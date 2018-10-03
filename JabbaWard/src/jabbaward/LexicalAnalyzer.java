@@ -54,8 +54,5 @@ class MDD{
         }
         
         return 0;
-    }
-    
-    
-    
+    }    
 }
