@@ -18,8 +18,11 @@ public class LexicalAnalyzer {
         archivoFuente = archivo;
     }
     
-    public void read(){
-        
+    public void compare(){
+        Pattern p = Pattern.compile(".s");//. represents single character  
+        Matcher m = p.matcher("as");  
+        boolean b = m.matches();  
+        System.out.println(b);
     }
 }
 
@@ -52,5 +55,7 @@ class MDD{
         
         return 0;
     }
+    
+    
     
 }
