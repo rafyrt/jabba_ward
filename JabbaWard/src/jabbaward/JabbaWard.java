@@ -23,10 +23,14 @@ public class JabbaWard {
     public static void main(String[] args) {
         // TODO code application logic here
         String filePath = ".\\test.jarjar";
-        System.out.println( fileReader( filePath ) );
+        String completeFile = fileReader( filePath );
+        String[] list = listCreator(completeFile);
+        for (int i = 0; i < list.length; i++) {
+            System.out.println(list[i]);
+        }
     }
 
-     private static String fileReader(String filePath)
+    private static String fileReader(String filePath)
     {
         StringBuilder contentBuilder = new StringBuilder();
  
@@ -41,4 +45,8 @@ public class JabbaWard {
         return contentBuilder.toString();
     }
     
+    private static String[] listCreator(String completeFile){
+        String[] tokenList = completeFile.split("\\s+"); 
+        return tokenList;
+    }
 }
