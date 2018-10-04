@@ -5,8 +5,10 @@
  */
 package jabbaward;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -22,7 +24,7 @@ public class JabbaWard {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO code application logic here
         String filePath = ".\\test.jarjar";
         //String filePath = ".\\t1.jarjar";
@@ -30,11 +32,21 @@ public class JabbaWard {
         String[] list = listCreator(completeFile);
         ArrayList<Symbol> tablaSimbolos = new ArrayList<>();
         tablaSimbolos = LexicalAnalyzer.Analyse(list);
-        System.out.println("Lista de Simbolos");
+//        System.out.println("Lista de Simbolos");
+        PrintWriter writer = new PrintWriter(new FileWriter(".\\TablaDeSimbolos.txt"));
+        writer.println("Tabla de Simbolos");
+        String format = "%-10s %-25s %-5s %n";
+        writer.printf(format, "ENTRADA", "CATEGORIA", "VALOR");
+        writer.printf(format, "-------", "---------", "-----");
         for (int i = 0; i < tablaSimbolos.size(); i++){
-            System.out.println(tablaSimbolos.get(i).getEntrada() + " " + tablaSimbolos.get(i).getCategoria() + " " +tablaSimbolos.get(i).getValor());
+<<<<<<< HEAD
+            System.out.println(tablaSimbolos.get(i).getEntrada() + "  " + tablaSimbolos.get(i).getCategoria() + "  " +tablaSimbolos.get(i).getValor());
 
+=======
+            writer.printf(format, tablaSimbolos.get(i).getEntrada(), tablaSimbolos.get(i).getCategoria(), tablaSimbolos.get(i).getValor());
+>>>>>>> 3aa7d5931c7a9a5eb18ce44419f13748367d1c55
         }
+        writer.close();
     }
 
     private static String fileReader(String filePath){

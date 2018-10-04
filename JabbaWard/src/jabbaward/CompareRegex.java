@@ -10,10 +10,17 @@ import java.util.regex.*;
  * @author Felipe
  */
 public class CompareRegex {
+<<<<<<< HEAD
     //CategoriaLexica comentario = new CategoriaLexica("<\\(-_-\\)>.*<\\(-_-\\)>", "comentario");
     //Se tomara como comentario  <(-_-)>
     CategoriaLexica comentario = new CategoriaLexica("<\\(-_-\\)>", "comentario");
+    //() call constructor 
+    CategoriaLexica callerConstructor = new CategoriaLexica("\\(\\)", "Constructor");
     CategoriaLexica comparacionArtimetica = new CategoriaLexica("(>|<|youWereLikeMyBrother|iHateYou)","comparacion aritmetica");
+=======
+    CategoriaLexica comentario = new CategoriaLexica("(<\\(-_-\\)>.*<\\(-_-\\)>|<\\(-_-\\)>)", "comentario");
+    CategoriaLexica comparacionArtimetica = new CategoriaLexica("(>|<|YouWereLikeMyBrother|IHateYou)","comparacion aritmetica");
+>>>>>>> 3aa7d5931c7a9a5eb18ce44419f13748367d1c55
     CategoriaLexica comparacionLogica = new CategoriaLexica("(AND|OR)","operador logico");
     CategoriaLexica acceso = new CategoriaLexica("(sith|jedi)","acceso");
     CategoriaLexica palabraReservada = new CategoriaLexica("(_iAmTheSenate|returnOfTheJedi|youngling|doit|fett|jango|do|doNot|snoke|helloThere)","palabra reservada");
@@ -22,11 +29,13 @@ public class CompareRegex {
     CategoriaLexica asignacion = new CategoriaLexica("=", "asignacion");
     CategoriaLexica EOL = new CategoriaLexica("~endor","EOL");
     CategoriaLexica ewok = new CategoriaLexica("'.'","ewok");
-    CategoriaLexica wookie = new CategoriaLexica("\".*\"","wookie");
+    CategoriaLexica wookie = new CategoriaLexica("(\".*\"||\")","wookie");
     CategoriaLexica aritmetico = new CategoriaLexica("(\\+|\\-|\\*|\\^|\\/)","operador aritmetico");
     CategoriaLexica agrupador = new CategoriaLexica("(\\(|\\)|\\{|\\})","agrupador");
     CategoriaLexica clones = new CategoriaLexica("(((\\d*|\\d*\\.\\d*)E(\\+|\\-)\\d+)|\\d*\\.\\d+|\\d+)","clones");
+    CategoriaLexica incremento = new CategoriaLexica("_\\w+\\+\\+", "incremento");
     CategoriaLexica id = new CategoriaLexica("_\\w+","id");
+    
 
     
     public String Comparator(String original){
@@ -44,7 +53,9 @@ public class CompareRegex {
         if(compare(original,aritmetico)){return aritmetico.name;}
         if(compare(original,agrupador)){return agrupador.name;}
         if(compare(original,clones)){return clones.name;}
+        if(compare(original,incremento)){return incremento.name;}        
         if(compare(original,id)){return id.name;}
+        if(compare(original,callerConstructor)){return callerConstructor.name;}
         else{return "NOT FOUND";}
     }
     

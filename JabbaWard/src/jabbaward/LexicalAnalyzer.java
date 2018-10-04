@@ -15,13 +15,47 @@ public class LexicalAnalyzer{
 
     static ArrayList<Symbol> Analyse(String[] list) {
         ArrayList<Symbol> tabla = new ArrayList<>();
+        String oneCW = "";
+        String current;
+        String space = " ";
+        String c = "comentario";
+        String w = "wookie";
+        int num = 0;
+        boolean notInCW = true;
         for (int i = 0; i < list.length; i++) {
             Symbol entry;
             String categoria;
+            String newString;
+            current = list[i];
             CompareRegex compareTest = new CompareRegex();
-            categoria = compareTest.Comparator(list[i]);
-            entry = new Symbol(i, categoria, list[i]);
+            categoria = compareTest.Comparator(current);
+            if((c.equals(categoria)||w.equals(categoria)) && notInCW == true){
+
+                oneCW+=current;
+                notInCW = false;
+            }
+
+            
+            else if((c.equals(categoria)||w.equals(categoria)) && notInCW == false){
+                newString = " " + current;
+                oneCW+=newString;
+                notInCW = true;
+                current = oneCW;
+                oneCW = "";
+                num++;
+                entry = new Symbol(num, categoria, current);
+                tabla.add(entry);
+            }
+            
+            else if (notInCW == false){
+                newString = " " + current;
+                oneCW+=newString;
+            }
+            else{
+            num++;
+            entry = new Symbol(num, categoria, current);
             tabla.add(entry);
+            }
         }
         return tabla;
     }
