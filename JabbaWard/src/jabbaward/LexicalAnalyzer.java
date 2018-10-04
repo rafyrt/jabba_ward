@@ -10,10 +10,12 @@ package jabbaward;
  * @author Rafael, Felipe & Cesar
  */
 
+import java.util.List;
 import java.util.regex.*;
 public class LexicalAnalyzer {
     String archivoFuente;
-    String tablaSimbolos;
+    String tablaSimbolos; 
+    ArrayList<Symbol> tablaSimbolos = new ArrayList<>();
     public LexicalAnalyzer(String archivo){
         archivoFuente = archivo;
     }
@@ -25,7 +27,17 @@ public class LexicalAnalyzer {
         System.out.println(b);
     }
 }
-
+class Symbol{
+    private int entrada;
+    private int categoria;
+    private String valor;
+    
+    public Symbol(int entrada, int categoria, String valor){
+        this.entrada = entrada;
+        this.categoria = categorai;
+        this.valor = valor;
+    } 
+}
 class MDD{
     int posicionInicial, posicionActual;
     public MDD(){

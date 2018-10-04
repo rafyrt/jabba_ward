@@ -1,8 +1,0 @@
-youngling iAmTheSenate ( ) {
-	drones _x = 10 ~endor
-	doit ( drones _i = 0 ~endor _i < 10 ~endor _i++){
-		<(-_-)> Wubba Lubba Dub Dub <(-_-)>
-		do( _x youWereLikeMyBrother 19 ) { helloThere ("General Kenobi") ~endor }
-		doNot { _x = _x + 1 ~endor}
-	}
-}
