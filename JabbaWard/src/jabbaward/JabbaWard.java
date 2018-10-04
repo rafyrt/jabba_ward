@@ -24,13 +24,17 @@ public class JabbaWard {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        //String filePath = ".\\test.jarjar";
-        String filePath = ".\\t1.jarjar";
+        String filePath = ".\\test.jarjar";
+        //String filePath = ".\\t1.jarjar";
         String completeFile = fileReader( filePath );
         String[] list = listCreator(completeFile);
         ArrayList<Symbol> tablaSimbolos = new ArrayList<>();
         tablaSimbolos = LexicalAnalyzer.Analyse(list);
-        System.out.println(tablaSimbolos.size());
+        System.out.println("Lista de Simbolos");
+        for (int i = 0; i < tablaSimbolos.size(); i++){
+            System.out.println(tablaSimbolos.get(i).getEntrada() + " " + tablaSimbolos.get(i).getCategoria() + " " +tablaSimbolos.get(i).getValor());
+
+        }
     }
 
     private static String fileReader(String filePath)
