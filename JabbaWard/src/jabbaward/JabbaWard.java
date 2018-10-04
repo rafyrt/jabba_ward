@@ -35,7 +35,9 @@ public class JabbaWard {
 //        System.out.println("Lista de Simbolos");
         PrintWriter writer = new PrintWriter(new FileWriter(".\\TablaDeSimbolos.txt"));
         writer.println("Tabla de Simbolos");
-        String format = "%-5s %-25s %-5s %n";
+        String format = "%-10s %-25s %-5s %n";
+        writer.printf(format, "ENTRADA", "CATEGORIA", "VALOR");
+        writer.printf(format, "-------", "---------", "-----");
         for (int i = 0; i < tablaSimbolos.size(); i++){
             writer.printf(format, tablaSimbolos.get(i).getEntrada(), tablaSimbolos.get(i).getCategoria(), tablaSimbolos.get(i).getValor());
         }
