@@ -6,9 +6,11 @@
 package jabbaward;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 /**
@@ -25,7 +27,9 @@ public class JabbaWard {
         String filePath = ".\\test.jarjar";
         String completeFile = fileReader( filePath );
         String[] list = listCreator(completeFile);
-        LexicalAnalyzer(list);
+        ArrayList<Symbol> tablaSimbolos = new ArrayList<>();
+        tablaSimbolos = LexicalAnalyzer.Analyse(list);
+        System.out.println(tablaSimbolos.size());
     }
 
     private static String fileReader(String filePath)
