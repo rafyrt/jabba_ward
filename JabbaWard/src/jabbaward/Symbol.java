@@ -19,4 +19,26 @@ public class Symbol{
         this.categoria = categoria;
         this.valor = valor;
     }
+    public int getEntrada(){
+        return entrada;
+    }
+    public String getCategoria(){
+        return categoria;
+    }
+
+    public String getValor(){
+        return valor;
+    }
+    public void setValor(String valor) {
+        this.valor = valor;
+    }
+    public void setEntrada(int entrada) {
+        this.entrada = entrada;
+    }
+    public void setCategoria(String categoria) {
+        this.categoria = defineCategory(valor);
+    }
+    private String defineCategory(String entrada){
+        
+    }
 }
