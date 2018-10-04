@@ -30,14 +30,11 @@ public class LexicalAnalyzer{
             CompareRegex compareTest = new CompareRegex();
             categoria = compareTest.Comparator(current);
             if((c.equals(categoria)||w.equals(categoria)) && notInCW == true){
-                
+
                 oneCW+=current;
                 notInCW = false;
             }
-            else if ("NOT FOUND".equals(categoria) && notInCW == false){
-                newString = " " + current;
-                oneCW+=newString;
-            }
+
             
             else if((c.equals(categoria)||w.equals(categoria)) && notInCW == false){
                 newString = " " + current;
@@ -48,6 +45,11 @@ public class LexicalAnalyzer{
                 num++;
                 entry = new Symbol(num, categoria, current);
                 tabla.add(entry);
+            }
+            
+            else if (notInCW == false){
+                newString = " " + current;
+                oneCW+=newString;
             }
             else{
             num++;
