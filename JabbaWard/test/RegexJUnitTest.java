@@ -84,18 +84,18 @@ public class RegexJUnitTest {
         assertEquals(expResult, result);
     }
 
-        @Test
-        public void drones() {
-        Pattern p = Pattern.compile("\\d+");
-        Matcher m = p.matcher("69");
-        boolean result = m.matches();
-        assertEquals(expResult, result);
-    }
+//        @Test
+//        public void drones() {
+//        Pattern p = Pattern.compile("\\d+");
+//        Matcher m = p.matcher("69");
+//        boolean result = m.matches();
+//        assertEquals(expResult, result);
+//    }
         
         @Test
         public void clones() {
-        Pattern p = Pattern.compile("(((\\d*|\\d*\\.\\d*)E(\\+|\\-)\\d+)|\\d*\\.\\d+)");
-        Matcher m = p.matcher("420.69E-69");
+        Pattern p = Pattern.compile("(((\\d*|\\d*\\.\\d*)E(\\+|\\-)\\d+)|\\d*\\.\\d+|\\d+)");
+        Matcher m = p.matcher("42");
         boolean result = m.matches();
         assertEquals(expResult, result);
     }
