@@ -11,6 +11,7 @@ import java.util.regex.*;
  */
 public class CompareRegex {
 <<<<<<< HEAD
+<<<<<<< HEAD
     //CategoriaLexica comentario = new CategoriaLexica("<\\(-_-\\)>.*<\\(-_-\\)>", "comentario");
     //Se tomara como comentario  <(-_-)>
     CategoriaLexica comentario = new CategoriaLexica("<\\(-_-\\)>", "comentario");
@@ -18,6 +19,8 @@ public class CompareRegex {
     CategoriaLexica callerConstructor = new CategoriaLexica("\\(\\)", "Constructor");
     CategoriaLexica comparacionArtimetica = new CategoriaLexica("(>|<|youWereLikeMyBrother|iHateYou)","comparacion aritmetica");
 =======
+=======
+>>>>>>> 3aa7d5931c7a9a5eb18ce44419f13748367d1c55
     CategoriaLexica comentario = new CategoriaLexica("(<\\(-_-\\)>.*<\\(-_-\\)>|<\\(-_-\\)>)", "comentario");
     CategoriaLexica comparacionArtimetica = new CategoriaLexica("(>|<|YouWereLikeMyBrother|IHateYou)","comparacion aritmetica");
 >>>>>>> 3aa7d5931c7a9a5eb18ce44419f13748367d1c55

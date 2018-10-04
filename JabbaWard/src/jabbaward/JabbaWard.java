@@ -40,8 +40,12 @@ public class JabbaWard {
         writer.printf(format, "-------", "---------", "-----");
         for (int i = 0; i < tablaSimbolos.size(); i++){
 <<<<<<< HEAD
+<<<<<<< HEAD
             System.out.println(tablaSimbolos.get(i).getEntrada() + "  " + tablaSimbolos.get(i).getCategoria() + "  " +tablaSimbolos.get(i).getValor());
 
+=======
+            writer.printf(format, tablaSimbolos.get(i).getEntrada(), tablaSimbolos.get(i).getCategoria(), tablaSimbolos.get(i).getValor());
+>>>>>>> 3aa7d5931c7a9a5eb18ce44419f13748367d1c55
 =======
             writer.printf(format, tablaSimbolos.get(i).getEntrada(), tablaSimbolos.get(i).getCategoria(), tablaSimbolos.get(i).getValor());
 >>>>>>> 3aa7d5931c7a9a5eb18ce44419f13748367d1c55
