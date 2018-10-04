@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 /**
  *
- * @author Rafael
+ * @author Rafael  
  */
 public class JabbaWard {
 
@@ -25,9 +25,7 @@ public class JabbaWard {
         String filePath = ".\\test.jarjar";
         String completeFile = fileReader( filePath );
         String[] list = listCreator(completeFile);
-        for (int i = 0; i < list.length; i++) {
-            System.out.println(list[i]);
-        }
+        LexicalAnalyzer(list);
     }
 
     private static String fileReader(String filePath)

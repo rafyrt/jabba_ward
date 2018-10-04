@@ -9,6 +9,14 @@ package jabbaward;
  *
  * @author cesar
  */
-public class Symbol {
+public class Symbol{
+    int entrada;
+    String categoria;
+    String valor;
     
+    public Symbol(int entrada, String categoria, String valor){
+        this.entrada = entrada;
+        this.categoria = categoria;
+        this.valor = valor;
+    }
 }
