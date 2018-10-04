@@ -15,13 +15,13 @@ public class LexicalAnalyzer{
 
     static ArrayList<Symbol> Analyse(String[] list) {
         ArrayList<Symbol> tabla = new ArrayList<>();
-        String twoSome = "";
+        String oneCW = "";
         String current;
         String space = " ";
         String c = "comentario";
         String w = "wookie";
         int num = 0;
-        boolean first = true;
+        boolean notInCW = true;
         for (int i = 0; i < list.length; i++) {
             Symbol entry;
             String categoria;
@@ -29,27 +29,25 @@ public class LexicalAnalyzer{
             current = list[i];
             CompareRegex compareTest = new CompareRegex();
             categoria = compareTest.Comparator(current);
-            if((c.equals(categoria)||w.equals(categoria)) && first == true){
+            if((c.equals(categoria)||w.equals(categoria)) && notInCW == true){
                 
-                twoSome+=current;
-                first = false;
+                oneCW+=current;
+                notInCW = false;
             }
-            else if ("NOT FOUND".equals(categoria) && first == false){
+            else if ("NOT FOUND".equals(categoria) && notInCW == false){
                 newString = " " + current;
-                twoSome+=newString;
-                newString = null;
+                oneCW+=newString;
             }
             
-            else if((c.equals(categoria)||w.equals(categoria)) && first == false){
+            else if((c.equals(categoria)||w.equals(categoria)) && notInCW == false){
                 newString = " " + current;
-                twoSome+=newString;
-                first = true;
-                current = twoSome;
-                twoSome = "";
+                oneCW+=newString;
+                notInCW = true;
+                current = oneCW;
+                oneCW = "";
                 num++;
                 entry = new Symbol(num, categoria, current);
                 tabla.add(entry);
-                
             }
             else{
             num++;
