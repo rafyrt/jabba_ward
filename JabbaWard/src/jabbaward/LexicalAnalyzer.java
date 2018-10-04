@@ -22,7 +22,4 @@ public class LexicalAnalyzer{
         }
         return tabla;
     }
-
-    String[] list;
-    ArrayList<Symbol> tablaSimbolos = new ArrayList<>();
 }
