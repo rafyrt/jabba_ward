@@ -10,11 +10,13 @@ import java.util.regex.*;
  * @author Felipe
  */
 public class CompareRegex {
-    CategoriaLexica comentario = new CategoriaLexica("<\\(-_-\\)>.*<\\(-_-\\)>", "comentario");
-    CategoriaLexica comparacionArtimetica = new CategoriaLexica("(>|<|YouWereLikeMyBrother|IHateYou)","comparacion aritmetica");
+    //CategoriaLexica comentario = new CategoriaLexica("<\\(-_-\\)>.*<\\(-_-\\)>", "comentario");
+    //Se tomara como comentario  <(-_-)>
+    CategoriaLexica comentario = new CategoriaLexica("<\\(-_-\\)>", "comentario");
+    CategoriaLexica comparacionArtimetica = new CategoriaLexica("(>|<|youWereLikeMyBrother|iHateYou)","comparacion aritmetica");
     CategoriaLexica comparacionLogica = new CategoriaLexica("(AND|OR)","operador logico");
     CategoriaLexica acceso = new CategoriaLexica("(sith|jedi)","acceso");
-    CategoriaLexica palabraReservada = new CategoriaLexica("(_iAmTheSenate|returnOfTheJedi|youngling|doit|fett|jango|do|doNot|snoke)","palabra reservada");
+    CategoriaLexica palabraReservada = new CategoriaLexica("(_iAmTheSenate|returnOfTheJedi|youngling|doit|fett|jango|do|doNot|snoke|helloThere)","palabra reservada");
     CategoriaLexica tiposDeDatos = new CategoriaLexica("(clones|ewok|wookie|lightsaber)","tipo de dato");
     CategoriaLexica lightsaber = new CategoriaLexica("(on|off)", "lightsaber");
     CategoriaLexica asignacion = new CategoriaLexica("=", "asignacion");
