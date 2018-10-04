@@ -24,7 +24,8 @@ public class JabbaWard {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        String filePath = ".\\test.jarjar";
+        //String filePath = ".\\test.jarjar";
+        String filePath = ".\\t1.jarjar";
         String completeFile = fileReader( filePath );
         String[] list = listCreator(completeFile);
         ArrayList<Symbol> tablaSimbolos = new ArrayList<>();

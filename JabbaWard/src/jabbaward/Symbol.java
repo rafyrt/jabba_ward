@@ -36,9 +36,6 @@ public class Symbol{
         this.entrada = entrada;
     }
     public void setCategoria(String categoria) {
-        this.categoria = defineCategory(valor);
-    }
-    private String defineCategory(String entrada){
-        
+        this.categoria = categoria;
     }
 }
