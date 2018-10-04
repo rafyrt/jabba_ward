@@ -23,13 +23,16 @@ public class JabbaWard {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        String filePath = ".\\test.jarjar";
-        String completeFile = fileReader( filePath );
-        String[] list = listCreator(completeFile);
-        ArrayList<Symbol> tablaSimbolos = new ArrayList<>();
-        tablaSimbolos = LexicalAnalyzer.Analyse(list);
-        System.out.println(tablaSimbolos.size());
+       
+//        String filePath = ".\\test.jarjar";
+//        String completeFile = fileReader( filePath );
+//        String[] list = listCreator(completeFile);
+//        ArrayList<Symbol> tablaSimbolos = new ArrayList<>();
+//        tablaSimbolos = LexicalAnalyzer.Analyse(list);
+//        System.out.println(tablaSimbolos.size());
+        
+        CompareRegex compareTest = new CompareRegex();
+        System.out.println(compareTest.CompareRegex("420.69"));
     }
 
     private static String fileReader(String filePath)
