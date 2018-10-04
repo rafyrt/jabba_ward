@@ -10,21 +10,23 @@ import java.util.regex.*;
  * @author Felipe
  */
 public class CompareRegex {
-    CategoriaLexica comentario = new CategoriaLexica("<\\(-_-\\)>.*<\\(-_-\\)>", "comentario");
+    CategoriaLexica comentario = new CategoriaLexica("(<\\(-_-\\)>.*<\\(-_-\\)>|<\\(-_-\\)>)", "comentario");
     CategoriaLexica comparacionArtimetica = new CategoriaLexica("(>|<|YouWereLikeMyBrother|IHateYou)","comparacion aritmetica");
     CategoriaLexica comparacionLogica = new CategoriaLexica("(AND|OR)","operador logico");
     CategoriaLexica acceso = new CategoriaLexica("(sith|jedi)","acceso");
-    CategoriaLexica palabraReservada = new CategoriaLexica("(_iAmTheSenate|returnOfTheJedi|youngling|doit|fett|jango|do|doNot|snoke)","palabra reservada");
+    CategoriaLexica palabraReservada = new CategoriaLexica("(_iAmTheSenate|returnOfTheJedi|youngling|doit|fett|jango|do|doNot|snoke|helloThere)","palabra reservada");
     CategoriaLexica tiposDeDatos = new CategoriaLexica("(clones|ewok|wookie|lightsaber)","tipo de dato");
     CategoriaLexica lightsaber = new CategoriaLexica("(on|off)", "lightsaber");
     CategoriaLexica asignacion = new CategoriaLexica("=", "asignacion");
     CategoriaLexica EOL = new CategoriaLexica("~endor","EOL");
     CategoriaLexica ewok = new CategoriaLexica("'.'","ewok");
-    CategoriaLexica wookie = new CategoriaLexica("\".*\"","wookie");
+    CategoriaLexica wookie = new CategoriaLexica("(\".*\"||\")","wookie");
     CategoriaLexica aritmetico = new CategoriaLexica("(\\+|\\-|\\*|\\^|\\/)","operador aritmetico");
     CategoriaLexica agrupador = new CategoriaLexica("(\\(|\\)|\\{|\\})","agrupador");
     CategoriaLexica clones = new CategoriaLexica("(((\\d*|\\d*\\.\\d*)E(\\+|\\-)\\d+)|\\d*\\.\\d+|\\d+)","clones");
+    CategoriaLexica incremento = new CategoriaLexica("_\\w+\\+\\+", "incremento");
     CategoriaLexica id = new CategoriaLexica("_\\w+","id");
+    
 
     
     public String Comparator(String original){
@@ -42,6 +44,7 @@ public class CompareRegex {
         if(compare(original,aritmetico)){return aritmetico.name;}
         if(compare(original,agrupador)){return agrupador.name;}
         if(compare(original,clones)){return clones.name;}
+        if(compare(original,incremento)){return incremento.name;}        
         if(compare(original,id)){return id.name;}
         else{return "NOT FOUND";}
     }

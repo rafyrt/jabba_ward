@@ -2,7 +2,7 @@ youngling _iAmTheSenate ( ) {
 	clones _x = 10 ~endor
 	doit ( clones _i = 0 ~endor _i < 10 ~endor _i++ ) {
 		<(-_-)> Wubba Lubba Dub Dub <(-_-)>
-		do ( _x youWereLikeMyBrother 19 ) { helloThere ( " General Kenobi " ) ~endor }
+		do ( _x YouWereLikeMyBrother 19 ) { helloThere ( " General Kenobi " ) ~endor }
 		doNot { _x = _x + 1 ~endor }
 	}
 }
