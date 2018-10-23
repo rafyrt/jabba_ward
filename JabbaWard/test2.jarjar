@@ -1,0 +1,24 @@
+#binks <stdio.h>
+jedi force _Program1 {
+	jedi clones _iAmTheSenate ( ) {
+		clones _i , _j , _rows = 5 , _count = 0 ~endor
+
+		doit ( _i = 1 ~endor _i <= 2 * _rows ~endor _i = _i + 2 ) {
+			doit ( _j = 1 ~endor _j <= _i ~endor _j ++ ) {
+				_helloThere ( " A " + _count ) ~endor
+				do ( _j <= _i / 2 ) {
+					_count ++ ~endor
+				}
+				doNot {
+					_count -- ~endor
+				}	
+
+			}
+
+			_count = 0 ~endor
+			_helloThere ( " \n " ) ~endor
+		}
+
+		returnOfTheJedi 0 ~endor 
+	}
+}

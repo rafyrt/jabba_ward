@@ -20,6 +20,7 @@ public class LexicalAnalyzer{
         String space = " ";
         String c = "comentario";
         String w = "wookie";
+        String l = "library";
         int num = 0;
         boolean notInCW = true;
         for (int i = 0; i < list.length; i++) {

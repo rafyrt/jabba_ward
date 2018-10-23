@@ -11,10 +11,10 @@ import java.util.regex.*;
  */
 public class CompareRegex {
     CategoriaLexica comentario = new CategoriaLexica("(<\\(-_-\\)>.*<\\(-_-\\)>|<\\(-_-\\)>)", "comentario");
-    CategoriaLexica comparacionArtimetica = new CategoriaLexica("(>|<|YouWereLikeMyBrother|IHateYou)","comparacion aritmetica");
+    CategoriaLexica comparacionArtimetica = new CategoriaLexica("(>=|<=|>|<|YouWereLikeMyBrother|IHateYou)","comparacion aritmetica");
     CategoriaLexica comparacionLogica = new CategoriaLexica("(AND|OR)","operador logico");
     CategoriaLexica acceso = new CategoriaLexica("(sith|jedi)","acceso");
-    CategoriaLexica palabraReservada = new CategoriaLexica("(_iAmTheSenate|returnOfTheJedi|youngling|doit|fett|jango|do|doNot|snoke|helloThere)","palabra reservada");
+    CategoriaLexica palabraReservada = new CategoriaLexica("(force|iAmTheSenate|returnOfTheJedi|youngling|doit|fett|jango|do|doNot|snoke|helloThere)","palabra reservada");
     CategoriaLexica tiposDeDatos = new CategoriaLexica("(clones|ewok|wookie|lightsaber)","tipo de dato");
     CategoriaLexica lightsaber = new CategoriaLexica("(on|off)", "lightsaber");
     CategoriaLexica asignacion = new CategoriaLexica("=", "asignacion");
@@ -24,8 +24,12 @@ public class CompareRegex {
     CategoriaLexica aritmetico = new CategoriaLexica("(\\+|\\-|\\*|\\^|\\/)","operador aritmetico");
     CategoriaLexica agrupador = new CategoriaLexica("(\\(|\\)|\\{|\\})","agrupador");
     CategoriaLexica clones = new CategoriaLexica("(((\\d*|\\d*\\.\\d*)E(\\+|\\-)\\d+)|\\d*\\.\\d+|\\d+)","clones");
-    CategoriaLexica incremento = new CategoriaLexica("_\\w+\\+\\+", "incremento");
+    //CategoriaLexica incremento = new CategoriaLexica("_\\w+\\+\\+", "incremento");
+    CategoriaLexica incremento = new CategoriaLexica("\\+\\+|\\-\\-", "incremento");
     CategoriaLexica id = new CategoriaLexica("_\\w+","id");
+    CategoriaLexica separador = new CategoriaLexica(",", "separador");
+    CategoriaLexica library = new CategoriaLexica("\\<.*\\>", "library"); 
+    CategoriaLexica include = new CategoriaLexica("#binks", "include"); 
     
 
     
@@ -46,6 +50,9 @@ public class CompareRegex {
         if(compare(original,clones)){return clones.name;}
         if(compare(original,incremento)){return incremento.name;}        
         if(compare(original,id)){return id.name;}
+        if(compare(original,separador)){return separador.name;}
+        if(compare(original,library)){return library.name;}
+        if(compare(original,include)){return include.name;}
         else{return "NOT FOUND";}
     }
     
