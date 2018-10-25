@@ -78,6 +78,41 @@ public class Parser {
         nivel = nivelAnterior;
         return max;
     }
+    public int isDecl(ArrayList<Symbol> symbols, int posicion){
+        int offset = 0;
+        if (symbols.get(posicion).getCategoria().equals("tipo de dato")) {
+           offset++;
+            if (symbols.get(posicion + offset).getCategoria().equals("id")) {
+                offset++;
+                if (symbols.get(posicion+offset).getCategoria().equals("EOL")) {
+                    offset++;
+                    return offset;                 
+                }else if (symbols.get(posicion+offset).getCategoria().equals("asignacion")) {
+                    offset++;
+                            
+                }
+                
+            }
+        }
+        return -1;
+    }
+    boolean isID(ArrayList<Symbol> symbols, int posicion){
+        return symbols.get(posicion).getCategoria().equals("id");
+    }
+    
+    boolean isVar(ArrayList<Symbol> symbols, int posicion){
+        return isID(symbols, posicion) || isConstant(symbols, posicion);
+    }
+    boolean isConstant(ArrayList<Symbol> symbols, int posicion){
+        return symbols.get(posicion).getCategoria().equals("clones") || symbols.get(posicion).getCategoria().equals("lightsaber")
+                || symbols.get(posicion).getCategoria().equals("ewok") || symbols.get(posicion).getCategoria().equals("wookie");
+    }
+    boolean isCalc(ArrayList<Symbol> symbols, int posicion){
+        if (isVar(symbols, posicion)){
+            if (symbols.get(posicion + 1).getCategoria().equals("operador aritmetico")) {
+                return isCalc(symbols, posicion + 2);
+            }
+            return true;
         }
         return false;
     }
