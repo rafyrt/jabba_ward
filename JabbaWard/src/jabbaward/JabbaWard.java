@@ -26,7 +26,8 @@ public class JabbaWard {
      */
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
-        String filePath = ".\\test4.jarjar";
+          String filePath = ".\\noExam.jarjar";
+//        String filePath = ".\\test4.jarjar";
 //        String filePath = ".\\test3.jarjar";
 //        String filePath = ".\\test2.jarjar";
         //String filePath = ".\\t1.jarjar";
