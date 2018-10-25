@@ -1,3 +1,7 @@
-clones _y ~endor
-clones _x = _x - 10 / 123456 ~endor
-_y = 0 
+youngling iAmTheSenate ( ) { 
+	clones _i = 0 ~endor
+ 	do ( _i < 10 ) { 
+ 		_i = _i + 1 ~endor 
+ 		helloThere ( _i ) ~endor 
+ 	} 
+}

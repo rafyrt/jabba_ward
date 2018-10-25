@@ -20,15 +20,42 @@ public class ParserRafa {
     }
     public boolean isS(){
         posicion = 0;
-        boolean b = isLines();
+        boolean b = isMain();
         b = b && isEOF();
         return  b ;
     }
     boolean isEOF(){
         return symbols.get(posicion).getCategoria().equals("EOF");
     }
+    boolean isEOL(){
+        return symbols.get(posicion).getCategoria().equals("EOL");
+    }
     boolean isEmpty(){
-        return symbols.get(posicion).getCategoria().equals("EOL")||symbols.get(posicion).getValor().equals("}")||isEOF();
+        return isEOL()||symbols.get(posicion).getValor().equals("}")||isEOF();
+    }
+    boolean isMain(){
+        if (symbols.get(posicion).getValor().equals("youngling")) {
+            posicion++;
+            if(symbols.get(posicion).getValor().equals("iAmTheSenate")){
+                posicion++;
+                if(symbols.get(posicion).getValor().equals("(")){
+                    posicion++;
+                    if(symbols.get(posicion).getValor().equals(")")){
+                        posicion++;
+                        if(symbols.get(posicion).getValor().equals("{")){
+                            posicion++;
+                            if(isLines()){
+                                if(symbols.get(posicion).getValor().equals("}")){
+                                    posicion++;
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
     boolean isLines(){
         if (isLine()) {
@@ -38,14 +65,25 @@ public class ParserRafa {
         return false;
     }
     boolean isLine(){
-        return isDecl()|| isAsign();
+        return isDecl()|| isAsign()||isIf()||isPrint();
     }
     boolean isIf(){
         if (symbols.get(posicion).getValor().equals("do")) {
-            if (symbols.get(posicion + 1).getValor().equals("(")) {
-                if (isLogic()) {
-                    if (symbols.get(posicion +2).getValor().equals(")")) {
-
+            posicion++;
+            if (symbols.get(posicion).getValor().equals("(")) {
+                posicion++;
+                if (isComp()) {
+                    if (symbols.get(posicion).getValor().equals(")")) {
+                        posicion++;
+                        if (symbols.get(posicion).getValor().equals("{")) {
+                            posicion++;
+                            if(isLines()){
+                                if (symbols.get(posicion).getValor().equals("}")) {
+                                    posicion++;
+                                    return true;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -53,6 +91,9 @@ public class ParserRafa {
         return false;
     }
     boolean isLogic(){
+        if (isComp()) { 
+            return true;            
+        }
         return false;
     }
     public boolean isDecl(){
@@ -60,11 +101,10 @@ public class ParserRafa {
             posicion++;
                 if (isID()) {
                     posicion++;
-                    if(symbols.get(posicion).getCategoria().equals("EOL")){
+                    if(isEOL()){
                         posicion++;
                         return true;                                 
                     }
-                    return false;
             }
             posicion--;
             return isAsign();
@@ -77,8 +117,8 @@ public class ParserRafa {
             posicion++;
             if (symbols.get(posicion).getCategoria().equals("asignacion")) {
                 posicion++;
-                if(isCalc()){
-                    if(symbols.get(posicion).getCategoria().equals("EOL")) {
+                if(isComp()){
+                    if(isEOL()) {
                         posicion++;
                         return true;
                     } 
@@ -99,7 +139,36 @@ public class ParserRafa {
         }
         return false;
     }
-    boolean isVar( ){
+    boolean isComp(){
+        if (isCalc()){
+            if (symbols.get(posicion).getCategoria().equals("comparacion aritmetica")) {
+                posicion++;
+                return isCalc();
+            }
+            return true;
+        }
+        return false;
+    }
+    boolean isPrint(){
+        if (symbols.get(posicion).getValor().equals("helloThere")) {
+            posicion++;
+            if (symbols.get(posicion).getValor().equals("(")) {
+                posicion++;
+                if (isVar()) {
+                    posicion++;
+                    if (symbols.get(posicion).getValor().equals(")")) {
+                        posicion++;
+                        if (isEOL()) {
+                            posicion++;
+                            return true;
+                        }
+                    }
+                }
+            }            
+        }
+        return false;
+    }
+    boolean isVar(){
         return isID( ) || isConstant( );
     }
     boolean isConstant(){

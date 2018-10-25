@@ -110,7 +110,7 @@ public class JabbaWard {
     }
     
     private static String[] listCreator(String completeFile){
-        String[] tokenList = completeFile.split("\\s+"); 
+        String[] tokenList = completeFile.trim().split("\\s+"); 
         return tokenList;
     }
 }
