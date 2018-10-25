@@ -1,1 +1,3 @@
-_x + _x - 10 / 123456
+clones _y ~endor
+clones _x = _x - 10 / 123456 ~endor
+_y = 0 

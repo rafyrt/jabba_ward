@@ -47,7 +47,7 @@ public class JabbaWard {
         }
         writer.close();
         ParserRafa pr = new ParserRafa(tablaSimbolos);
-         System.out.println(pr.isCalc());
+         System.out.println(pr.isS());
         
         /*Parser p = new Parser();
         ArrayList<Nodo> tree = new ArrayList<Nodo>();

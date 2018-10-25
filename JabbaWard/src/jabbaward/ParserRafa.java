@@ -20,10 +20,15 @@ public class ParserRafa {
     }
     public boolean isS(){
         posicion = 0;
-        return isCalc();
+        boolean b = isLines();
+        b = b && isEOF();
+        return  b ;
+    }
+    boolean isEOF(){
+        return symbols.get(posicion).getCategoria().equals("EOF");
     }
     boolean isEmpty(){
-        return symbols.get(posicion).getCategoria().equals("EOL")||symbols.get(posicion).getValor().equals("}");
+        return symbols.get(posicion).getCategoria().equals("EOL")||symbols.get(posicion).getValor().equals("}")||isEOF();
     }
     boolean isLines(){
         if (isLine()) {
@@ -33,7 +38,7 @@ public class ParserRafa {
         return false;
     }
     boolean isLine(){
-        return isDecl()|| isIf();
+        return isDecl()|| isAsign();
     }
     boolean isIf(){
         if (symbols.get(posicion).getValor().equals("do")) {
@@ -52,9 +57,16 @@ public class ParserRafa {
     }
     public boolean isDecl(){
         if (symbols.get(posicion).getCategoria().equals("tipo de dato")) {
-                if (isID() && symbols.get(posicion).getCategoria().equals("EOL")) {
-                    return true;                                 
+            posicion++;
+                if (isID()) {
+                    posicion++;
+                    if(symbols.get(posicion).getCategoria().equals("EOL")){
+                        posicion++;
+                        return true;                                 
+                    }
+                    return false;
             }
+            posicion--;
             return isAsign();
         }
         return false;
@@ -62,12 +74,15 @@ public class ParserRafa {
     
     boolean isAsign(){
         if (isID()) {
-            
-            if (symbols.get(posicion+1).getCategoria().equals("asignacion")) {
+            posicion++;
+            if (symbols.get(posicion).getCategoria().equals("asignacion")) {
+                posicion++;
                 if(isCalc()){
-                    posicion++;
-                    
-                    
+                    if(symbols.get(posicion).getCategoria().equals("EOL")) {
+                        posicion++;
+                        return true;
+                    } 
+                    return false;
                 }
             }
         }
