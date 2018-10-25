@@ -19,7 +19,8 @@ public class ParserRafa {
         this.symbols = symbols;
     }
     public boolean isS(){
-        return isLines();
+        posicion = 0;
+        return isCalc();
     }
     boolean isEmpty(){
         return symbols.get(posicion).getCategoria().equals("EOL")||symbols.get(posicion).getValor().equals("}");
@@ -51,7 +52,7 @@ public class ParserRafa {
     }
     public boolean isDecl(){
         if (symbols.get(posicion).getCategoria().equals("tipo de dato")) {
-            if (isID() && symbols.get(posicion).getCategoria().equals("EOL")) {
+                if (isID() && symbols.get(posicion).getCategoria().equals("EOL")) {
                     return true;                                 
             }
             return isAsign();
@@ -61,8 +62,11 @@ public class ParserRafa {
     
     boolean isAsign(){
         if (isID()) {
+            
             if (symbols.get(posicion+1).getCategoria().equals("asignacion")) {
                 if(isCalc()){
+                    posicion++;
+                    
                     
                 }
             }
@@ -70,9 +74,11 @@ public class ParserRafa {
         return false;
     }
     boolean isCalc(){
-        if (isVar( )){
+        if (isVar()){
+            posicion++;
             if (symbols.get(posicion).getCategoria().equals("operador aritmetico")) {
-                return isCalc( );
+                posicion++;
+                return isCalc();
             }
             return true;
         }

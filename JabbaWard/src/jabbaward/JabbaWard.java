@@ -26,7 +26,8 @@ public class JabbaWard {
      */
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
-          String filePath = ".\\noExam.jarjar";
+          String filePath = ".\\prueba.jarjar";
+//          String filePath = ".\\noExam.jarjar";
 //        String filePath = ".\\test4.jarjar";
 //        String filePath = ".\\test3.jarjar";
 //        String filePath = ".\\test2.jarjar";
@@ -45,8 +46,10 @@ public class JabbaWard {
             writer.printf(format, tablaSimbolos.get(i).getEntrada(), tablaSimbolos.get(i).getCategoria(), tablaSimbolos.get(i).getValor());
         }
         writer.close();
+        ParserRafa pr = new ParserRafa(tablaSimbolos);
+         System.out.println(pr.isCalc());
         
-        Parser p = new Parser();
+        /*Parser p = new Parser();
         ArrayList<Nodo> tree = new ArrayList<Nodo>();
         
         tree = p.getParsed(tablaSimbolos);
@@ -88,7 +91,7 @@ public class JabbaWard {
             System.out.println("Papi es " + tree.get(tree.get(i).getPadre()).getTexto());
             System.out.println("El id es " + tree.get(i).getTexto());
             System.out.println();
-        }
+        }*/
     }
 
     private static String fileReader(String filePath)
