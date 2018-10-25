@@ -1,7 +1,1 @@
-youngling iAmTheSenate ( ) { 
-	clones _i = 0 ~endor
- 	do ( _i < 10 ) { 
- 		_i = _i + 1 ~endor 
- 		helloThere ( _i ) ~endor 
- 	} 
-}
+_i + 1
