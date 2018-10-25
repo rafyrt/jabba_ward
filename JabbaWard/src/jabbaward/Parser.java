@@ -78,6 +78,15 @@ public class Parser {
         nivel = nivelAnterior;
         return max;
     }
+        }
+        return false;
+    }
+    boolean isAsign(ArrayList<Symbol> symbols, int posicion){
+        if (symbols.get(posicion).getCategoria().equals("id")) {
+            
+        }
+        return false;
+    }
     
 //    public 
 //  public void parse(LinkedList<Symbol> tokens){
