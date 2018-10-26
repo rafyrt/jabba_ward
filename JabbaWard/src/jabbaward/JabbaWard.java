@@ -26,6 +26,7 @@ public class JabbaWard {
      */
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
+          //String filePath = ".\\prueba.jarjar";
           String filePath = ".\\noExam.jarjar";
 //        String filePath = ".\\test4.jarjar";
 //        String filePath = ".\\test3.jarjar";
@@ -45,12 +46,17 @@ public class JabbaWard {
             writer.printf(format, tablaSimbolos.get(i).getEntrada(), tablaSimbolos.get(i).getCategoria(), tablaSimbolos.get(i).getValor());
         }
         writer.close();
+//        ParserRafa pr = new ParserRafa(tablaSimbolos);
+//         System.out.println(pr.isS());
         
-        Parser p = new Parser();
+        ParserRafa pr = new ParserRafa(tablaSimbolos);
+        if (pr.isS()) {System.out.println("EL CODIGO ES CORRECTO!");}
+        else {System.out.println("AVISO: Existen errores en el codigo.");}
+        
+        SA p = new SA(tablaSimbolos);
         ArrayList<Nodo> tree = new ArrayList<Nodo>();
         
-        tree = p.getParsed(tablaSimbolos);
-        
+        tree = p.compare();
         
         PrintWriter writer2 = new PrintWriter(new FileWriter(".\\tree.txt"));
           
@@ -58,7 +64,7 @@ public class JabbaWard {
         
        writer2.println("----------------------------TREE----------------------------");
        writer2.println("NIVEL-------------------------------------------------------");
-       System.out.println("NuMERO DE NODOS EN tree" + tree.size());
+       //System.out.println("NuMERO DE NODOS EN tree" + tree.size());
        int nivel = 0;
         for (int i = 0; i < tree.size(); i++) {
             if (nivel<tree.get(i).getNivel()) {
@@ -66,7 +72,7 @@ public class JabbaWard {
             }
             
         }
-        System.out.println("EL NIVEL ES: "+nivel);
+        //System.out.println("EL NIVEL ES: "+nivel);
          
         //String format2 = "%-10s";
         for (int nivelActual = 0; nivelActual <= nivel; nivelActual++) {
@@ -82,13 +88,13 @@ public class JabbaWard {
 //                System.out.println("El tercer id es " + tree.get(7).getTexto());
 //                System.out.println("El nodo padre es " + tree.get(tree.get(7).getPadre()).getTexto());
         writer2.close();
-        
-        for (int i = 0; i < tree.size(); i++) {
-            System.out.println();
-            System.out.println("Papi es " + tree.get(tree.get(i).getPadre()).getTexto());
-            System.out.println("El id es " + tree.get(i).getTexto());
-            System.out.println();
-        }
+//        
+//        for (int i = 0; i < tree.size(); i++) {
+//            System.out.println();
+//            System.out.println("Papi es " + tree.get(tree.get(i).getPadre()).getTexto());
+//            System.out.println("El id es " + tree.get(i).getTexto());
+//            System.out.println();
+//        
     }
 
     private static String fileReader(String filePath)
@@ -107,7 +113,7 @@ public class JabbaWard {
     }
     
     private static String[] listCreator(String completeFile){
-        String[] tokenList = completeFile.split("\\s+"); 
+        String[] tokenList = completeFile.trim().split("\\s+"); 
         return tokenList;
     }
 }
