@@ -11,6 +11,7 @@ package jabbaward;
  */
 public class Nodo {
     int id;
+    int simbolo;
     int nivel;
     String texto;
     int padre;
@@ -21,12 +22,25 @@ public class Nodo {
         this.nivel = nivel;
         this.texto = texto;
         this.padre = padre;
+        this.simbolo = -1;
+    }
+    public Nodo (int id, int nivel, String texto, int padre, int simbolo){
+        this.id = id;
+        this.nivel = nivel;
+        this.texto = texto;
+        this.padre = padre;
+        this.simbolo = simbolo;
+    }
+    public String print(){
+        return "id: " +this.id+ ", nivel: "+this.nivel+ ", texto: "+this.texto+ ", padre: "+this.padre;
     }
     
     public Nodo (int id, int nivel, String texto){
         this.id = id;
         this.nivel = nivel;
         this.texto = texto;
+        this.padre = -1;
+        this.simbolo = -1;
     }
     
     public int getId(){
