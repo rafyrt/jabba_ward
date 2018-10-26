@@ -1,0 +1,8 @@
+----------------------------TREE----------------------------
+NIVEL-------------------------------------------------------
+0	S,0                 
+1	Main,1              
+2	palabra reservada,2 palabra reservada,4 agrupador,6         agrupador,8         agrupador,10        decl,12             asig,15             condicional,27      if,28               agrupador,29        agrupador,40        
+3	youngling,3         iAmTheSenate,5      (,7                 ),9                 {,11                type,13             id,16               asignacion,19       cte,22              EOL,25              do,29               (,30                id,32               id,35               cte,38              asig,41             helloThere,59       agrupador,60        agrupador,65        agrupador,70        agrupador,72        
+4	clones,14           _i,17               =,20                0,23                ~endor,26           _i,33               <,36                10,39               id,42               asignacion,45       id,48               op_arit,51          cte,54              EOL,57              (,61                id,63               ),66                EOL,68              },71                },73                
+5	_i,43               =,46                _i,49               +,52                1,55                ~endor,58           _i,64               ~endor,69           

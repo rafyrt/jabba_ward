@@ -58,6 +58,7 @@ public class LexicalAnalyzer{
             tabla.add(entry);
             }
         }
+        tabla.add(new Symbol(tabla.size()+1, "EOF", "EOF"));
         return tabla;
     }
 //        private static String defineCategory(String valor){

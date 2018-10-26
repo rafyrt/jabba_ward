@@ -1,0 +1,34 @@
+Tabla de Simbolos
+ENTRADA    CATEGORIA                 VALOR 
+-------    ---------                 ----- 
+1          palabra reservada         youngling 
+2          palabra reservada         iAmTheSenate 
+3          agrupador                 (     
+4          agrupador                 )     
+5          agrupador                 {     
+6          tipo de dato              clones 
+7          id                        _i    
+8          asignacion                =     
+9          clones                    0     
+10         EOL                       ~endor 
+11         palabra reservada         do    
+12         agrupador                 (     
+13         id                        _i    
+14         comparacion aritmetica    <     
+15         clones                    10    
+16         agrupador                 )     
+17         agrupador                 {     
+18         id                        _i    
+19         asignacion                =     
+20         id                        _i    
+21         operador aritmetico       +     
+22         clones                    1     
+23         EOL                       ~endor 
+24         palabra reservada         helloThere 
+25         agrupador                 (     
+26         id                        _i    
+27         agrupador                 )     
+28         EOL                       ~endor 
+29         agrupador                 }     
+30         agrupador                 }     
+31         EOF                       EOF   

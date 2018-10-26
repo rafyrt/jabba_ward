@@ -43,6 +43,12 @@ public class SA {
                 symbChunk.clear();
                 currentTree.clear();
             } else if (symbols.get(i).getCategoria().equals("EOF")) {
+                posicion = 0;
+                System.out.println(symbChunk.size());
+                rules();
+                tree.addAll(currentTree);
+                symbChunk.clear();
+                currentTree.clear();
                 break;
             } else {
                 symbChunk.add(symbols.get(i));
@@ -113,7 +119,7 @@ public class SA {
     }
 
     void line() {
-        System.out.println(getV(posicion));
+        //System.out.println(getV(posicion));
         if (getC(posicion).equals("tipo de dato")) {
             addCurrent(id, nivel, "decl", padre);
             //System.out.println("NIVEL: ------------ " + nivel);
@@ -125,41 +131,91 @@ public class SA {
             asig();
         } else if (getV(posicion).equals("do")) {
             addCurrent(id, nivel, "condicional", padre);
+            lr();
             condicional();
         } else if (getV(posicion).equals("helloThere")) {
-            addCurrent(id, nivel, "condicional", padre);
-            asig();
+            addCurrent(id, nivel, "helloThere", padre);
+            lr();
+            call();
+        } else if (getV(posicion).equals("}")) {
+
+            addCurrent(id, nivel, getC(posicion), padre);
+            down();
+
+            addCurrent(id, nivel, getV(posicion), padre);
+            up();
+            lr();
+            if (getV(posicion).equals("}")) {
+
+                addCurrent(id, nivel, getC(posicion), padre);
+                down();
+
+                addCurrent(id, nivel, getV(posicion), padre);
+                up();
+                lr();
+
+            } else {
+                tokenError(getS(posicion));
+            }
+        }
+    }
+
+    void call() {
+        if (getC(posicion).equals("agrupador")) {
+
+            addCurrent(id, nivel, getC(posicion), padre);
+            down();
+
+            if (getV(posicion).equals("(")) {
+
+                addCurrent(id, nivel, getV(posicion), padre);
+                up();
+                lr();
+                call();
+
+            } else if (getV(posicion).equals(")")) {
+
+                addCurrent(id, nivel, getV(posicion), padre);
+                up();
+                lr();
+                call();
+
+            }
+        } else if (getC(posicion).equals("id")) {
+            id();
+            call();
+
+        } else if (getC(posicion).equals("EOL")) {
+            eol();
+
         } else {
             tokenError(getS(posicion));
         }
     }
 
     void condicional() {
-        
-        if (getV(posicion).equals("do")) {
-            down();
-            addCurrent(id, nivel, "if", padre);
-            down();
-            addCurrent(id, nivel, "do", padre);
-            up();
-            sentence();
-        } else {
-            tokenError(getS(posicion));
-        }
+
+        addCurrent(id, nivel, "if", padre);
+        down();
+        addCurrent(id, nivel, "do", padre);
+        up();
+        sentence();
+
     }
 
     void sentence() {
+        //System.out.println(getV(posicion));
         if (getC(posicion).equals("agrupador")) {
             addCurrent(id, nivel, getC(posicion), padre);
             down();
-            
+
             if (getV(posicion).equals("(")) {
 
                 addCurrent(id, nivel, getV(posicion), padre);
                 up();
                 lr();
                 sentence();
-            } 
+            }
         } else if (getC(posicion).equals("id")) {
             id();
             //down();
@@ -167,21 +223,20 @@ public class SA {
         } else if (getC(posicion).equals("clones") || getC(posicion).equals("lightsaber") || getC(posicion).equals("ewok") || getC(posicion).equals("wookie")) {
             cte();
             sentence();
-        } else if(getC(posicion).equals("comparacion aritmetica")){
-            comp_arit();sentence();
-        }
-        
-        else if (getC(posicion).equals("agrupador")) {
+        } else if (getC(posicion).equals("comparacion aritmetica")) {
+            comp_arit();
+            sentence();
+        } else if (getC(posicion).equals("agrupador")) {
             addCurrent(id, nivel, getC(posicion), padre);
             down();
-            
+
             if (getV(posicion).equals(")")) {
 
                 addCurrent(id, nivel, getV(posicion), padre);
                 up();
                 lr();
             }
-System.out.println("THIS THIS THIS");
+
         } else {
             System.out.println("THIS THIS THIS");
             tokenError(getS(posicion));
@@ -340,7 +395,7 @@ System.out.println("THIS THIS THIS");
                 up();
                 //mainExist = true;
             }
-           // System.out.println(nivel);
+            // System.out.println(nivel);
         } else {
             tokenError(getS(posicion));
         }
