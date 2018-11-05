@@ -44,11 +44,19 @@ public class SA {
                 currentTree.clear();
             } else if (symbols.get(i).getCategoria().equals("EOF")) {
                 posicion = 0;
-                System.out.println(symbChunk.size());
-                rules();
-                tree.addAll(currentTree);
+                //
+                for (int j = 0; j < symbChunk.size(); j++) {
+                    System.out.println("ESTE " + symbChunk.size());
+                }
+                System.out.println("chetos");
+                if (symbChunk.size() > 1) {
+                    rules();
+                    tree.addAll(currentTree);
+                }
+
                 symbChunk.clear();
                 currentTree.clear();
+                
                 break;
             } else {
                 symbChunk.add(symbols.get(i));
@@ -137,27 +145,31 @@ public class SA {
             addCurrent(id, nivel, "helloThere", padre);
             lr();
             call();
+        } else if (getV(posicion).equals("EOF")) {
+            //end
         } else if (getV(posicion).equals("}")) {
+            closingBrack();
 
-            addCurrent(id, nivel, getC(posicion), padre);
-            down();
-
-            addCurrent(id, nivel, getV(posicion), padre);
-            up();
-            lr();
-            if (getV(posicion).equals("}")) {
-
-                addCurrent(id, nivel, getC(posicion), padre);
-                down();
-
-                addCurrent(id, nivel, getV(posicion), padre);
-                up();
-                lr();
-
-            } else {
-                tokenError(getS(posicion));
-            }
         }
+    }
+
+    void closingBrack() {
+        addCurrent(id, nivel, getC(posicion), padre);
+        down();
+        addCurrent(id, nivel, getV(posicion), padre);
+        up();
+        if (posicion+1 < symbChunk.size() ) {
+
+            
+            if (getV(posicion).equals("EOF")) {
+                line();
+            }
+            else if (getV(posicion).equals("}")) {
+                lr();
+                closingBrack();
+            }  
+        }
+
     }
 
     void call() {

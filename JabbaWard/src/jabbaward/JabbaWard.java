@@ -28,6 +28,7 @@ public class JabbaWard {
         // TODO code application logic here
           //String filePath = ".\\prueba.jarjar";
           String filePath = ".\\noExam.jarjar";
+//String filePath = ".\\z.jarjar";
 //        String filePath = ".\\test4.jarjar";
 //        String filePath = ".\\test3.jarjar";
 //        String filePath = ".\\test2.jarjar";
@@ -88,6 +89,16 @@ public class JabbaWard {
 //                System.out.println("El tercer id es " + tree.get(7).getTexto());
 //                System.out.println("El nodo padre es " + tree.get(tree.get(7).getPadre()).getTexto());
         writer2.close();
+        
+        PrintWriter writer3 = new PrintWriter(new FileWriter(".\\nodos.txt"));
+        
+        for (int i = 0; i < tree.size(); i++) {
+//            writer3.println(tree.get(i).getId() + "\t" + tree.get(i).getTexto() + "\t\t" + tree.get(i).getNivel());
+            writer3.printf(format, tree.get(i).getId(), tree.get(i).getTexto(), tree.get(i).getNivel());
+            //writer3.println();
+        }
+        
+        writer3.close();
 //        
 //        for (int i = 0; i < tree.size(); i++) {
 //            System.out.println();
