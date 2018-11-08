@@ -50,30 +50,31 @@ public class ParserRafa {
         nodo = new Nodo(++id,nivel,"MAIN",padre);
         tree.add(nodo);
         padre= id;
+        nivel++;
         if (symbols.get(posicion).getValor().equals("youngling")) {
             nodo = new Nodo(++id,nivel,"void",padre);
             tree.add(nodo);
             posicion++;
             if(symbols.get(posicion).getValor().equals("iAmTheSenate")){
                 nodo = new Nodo(++id,nivel,"main",padre);
-            tree.add(nodo);
+                tree.add(nodo);
                 posicion++;
                 if(symbols.get(posicion).getValor().equals("(")){
                     nodo = new Nodo(++id,nivel,"(",padre);
-            tree.add(nodo);
+                    tree.add(nodo);
                     posicion++;
                     if(symbols.get(posicion).getValor().equals(")")){
                         nodo = new Nodo(++id,nivel,")",padre);
-            tree.add(nodo);
+                        tree.add(nodo);
                         posicion++;
                         if(symbols.get(posicion).getValor().equals("{")){
                             nodo = new Nodo(++id,nivel,"{",padre);
-            tree.add(nodo);
+                            tree.add(nodo);
                             posicion++;
                             if(isLines(padre)){
                                 if(symbols.get(posicion).getValor().equals("}")){
                                     nodo = new Nodo(++id,nivel,"}",padre);
-            tree.add(nodo);
+                                    tree.add(nodo);
                                     posicion++;
                                     return true;
                                 }
@@ -128,6 +129,20 @@ public class ParserRafa {
         posicion = tempP;
         removeNodes(tempSize);
         padre = id;
+        if (isWhile()){
+            return true;
+        }
+        nivel--;
+        posicion = tempP;
+        removeNodes(tempSize);
+        padre = id;
+        if (isFor()){
+            return true;
+        }
+        nivel--;
+        posicion = tempP;
+        removeNodes(tempSize);
+        padre = id;
         if(isPrint()){
             return true;
         }
@@ -176,6 +191,98 @@ public class ParserRafa {
         nivel--;
         return false;
     }
+    boolean isWhile(){
+        nivel++;
+        nodo = new Nodo(++id,nivel,"WHILE",padre,posicion);
+        tree.add(nodo);
+        padre = id;
+        if (symbols.get(posicion).getValor().equals("fett")) {
+            nodo = new Nodo(++id,nivel,"fett",padre,posicion);
+            tree.add(nodo);
+            posicion++;
+            if (symbols.get(posicion).getValor().equals("(")) {
+                nodo = new Nodo(++id,nivel,"(",padre,posicion);
+                tree.add(nodo);
+                posicion++;
+                if (isComp()) {
+                    if (symbols.get(posicion).getValor().equals(")")) {
+                        nodo = new Nodo(++id,nivel,")",padre,posicion);
+                        tree.add(nodo);
+                        posicion++;
+                        if (symbols.get(posicion).getValor().equals("{")) {
+                            nodo = new Nodo(++id,nivel,"{",padre,posicion);
+                            tree.add(nodo);
+                            posicion++;
+                            if(isLines(padre)){
+                                if (symbols.get(posicion).getValor().equals("}")) {
+                                    nodo = new Nodo(++id,nivel,"}",padre,posicion);
+                                    tree.add(nodo);
+                                    posicion++;
+                                    nivel--;
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        nivel--;
+        return false;
+    }
+    boolean isFor(){
+        nivel++;
+        nodo = new Nodo(++id,nivel,"FOR",padre,posicion);
+        tree.add(nodo);
+        padre = id;
+        int temp = padre;
+        if (symbols.get(posicion).getValor().equals("doit")) {
+            nivel++;
+            nodo = new Nodo(++id,nivel,"doit",padre,posicion);
+            tree.add(nodo);
+            posicion++;
+            if (symbols.get(posicion).getValor().equals("(")) {
+                nodo = new Nodo(++id,nivel,"(",padre,posicion);
+                tree.add(nodo);
+                posicion++;
+                if (isAsign()) {
+                    if (isComp()) {
+                        if(isEOL()) {
+                                
+                            padre = temp;
+                            tree.add(new Nodo(++id,nivel,"EOL",padre));
+                            posicion++;
+                            if(isAsign()){
+                                padre = temp;
+                                if (symbols.get(posicion).getValor().equals(")")) {
+                                    nodo = new Nodo(++id,nivel,")",padre,posicion);
+                                    tree.add(nodo);
+                                    posicion++;
+                                    if (symbols.get(posicion).getValor().equals("{")) {
+                                        nodo = new Nodo(++id,nivel,"{",padre,posicion);
+                                        tree.add(nodo);
+                                        posicion++;
+                                        if(isLines(padre)){
+                                            if (symbols.get(posicion).getValor().equals("}")) {
+                                                nodo = new Nodo(++id,nivel,"}",padre,posicion);
+                                                tree.add(nodo);
+                                                posicion++;
+                                                nivel--;
+                                                return true;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+        nivel--;
+        return false;
+    }
     boolean isLogic(){
         if (isComp()) { 
             return true;            
@@ -205,11 +312,12 @@ public class ParserRafa {
                         tree.add(new Nodo(++id,nivel,"EOL",padre));
                         posicion++;
                         nivel--;
-                        return true;
                     }
                     tree.add(new Nodo(++id,nivel,"missing EOL",padre));
                         nivel--;
                     posicion++;
+                    
+                        return true;
             }
             posicion--;
         }
@@ -237,8 +345,8 @@ public class ParserRafa {
                     }
                     tree.add(new Nodo(++id,nivel,"missing EOL",padre));
                     posicion++;
-                        nivel--;
-                    return false;
+                    nivel--;
+                    return true;
                 }
             }
         }
@@ -308,7 +416,7 @@ public class ParserRafa {
                     nivel++;
                     if (symbols.get(posicion).getValor().equals(")")) {
                         nodo = new Nodo(++id,nivel,")",padre);
-            tree.add(nodo);
+                        tree.add(nodo);
                         posicion++;
                         if (isEOL()) {
                              tree.add(new Nodo(++id,nivel,"EOL",padre));
@@ -360,5 +468,9 @@ public class ParserRafa {
             tree.remove(tree.size()-1);
         }
     }
-    
+    void findNextLine( ){
+        while (!(isEOL()|| isEmpty())){
+            posicion++;
+        }
+    }
 }
