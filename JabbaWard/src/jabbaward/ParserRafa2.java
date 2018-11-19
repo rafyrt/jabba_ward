@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Rafael
  */
-public class ParserRafa {
+public class ParserRafa2 {
     ArrayList<Symbol> symbols;
     public ArrayList<Nodo> tree;
     int posicion;
@@ -21,7 +21,7 @@ public class ParserRafa {
     int hijo, nuevaPosicion;
     Nodo inicial = new Nodo(0, 0, "S");
     Nodo nodo;
-    public ParserRafa(ArrayList<Symbol> symbols){
+    public ParserRafa2(ArrayList<Symbol> symbols){
         this.symbols = symbols;
     }
     public boolean isS(){

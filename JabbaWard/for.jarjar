@@ -1,0 +1,5 @@
+youngling iAmTheSenate ( ) { 
+	doit ( _i = 0 ~endor _i < 10 ~endor _i ++ ) {
+		helloThere ( " wonka " ) ~endor
+	}
+}	

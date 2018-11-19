@@ -1,0 +1,9 @@
+youngling iAmTheSenate ( ) { 
+	
+ 	do ( _i < 10 ) { 
+ 		clones _a ~endor 
+	 	do ( _i < 10 ) { 
+ 			clones _b ~endor 
+ 		} 
+ 	} 
+}	

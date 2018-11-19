@@ -15,16 +15,21 @@ public class SA {
 
     ArrayList<Symbol> symbols = new ArrayList<>();
     ArrayList<Symbol> symbChunk = new ArrayList<>();
-    int nivel = 0;
+    ArrayList<ArrayList> erroresTotal = new ArrayList<>();
+    ArrayList<Symbol> errorCurrent = new ArrayList<>();
+    int niv = 0; //nivel en el arbol
     int id = 0;
-    int padre = 0;
-    int nivelOrig;
-    int posicion;
+    int dad = 0; //nodo dad
+    int nivOrig;
+    int pos; // pos
     ArrayList<Nodo> tree = new ArrayList<>();
     ArrayList<Nodo> currentTree = new ArrayList<>();
-    Nodo inicial = new Nodo(id, nivel, "S");
+    Nodo inicial = new Nodo(id, niv, "S");
     Nodo nodo;
     boolean mainExist = false;
+    boolean linesExist = false;
+    boolean isFirstBracket = true;
+    boolean e = true;
 
     public SA(ArrayList<Symbol> symbols) {
         this.symbols = symbols;
@@ -35,44 +40,104 @@ public class SA {
         for (int i = 0; i <= symbols.size(); i++) {
 
             if (symbols.get(i).getValor().equals("{") || symbols.get(i).getCategoria().equals("EOL")) {
+//                if (symbols.get(i).getCategoria().equals("EOL")) {
+//                    symbChunk.add(symbols.get(i));
+//                } else if (isFirstBracket) {
+//                    isFirstBracket = false;
+//                    symbChunk.add(symbols.get(i));
+//                }
+                if (mainExist == false) {
+                    id++;
+                    niv++;
+                    main();
+                } else {
+                    rules();
+                }
                 symbChunk.add(symbols.get(i));
-                posicion = 0;
-
+                pos = 0;
+//                System.out.println("TAMANO DEL CHUNK " + symbChunk.size());
                 rules();
-                tree.addAll(currentTree);
+                if (errorCurrent.size() > 0) {
+                    mostrarErrores();
+                } else {
+                    tree.addAll(currentTree);
+                }
+//                erroresTotal.add(errorCurrent);
+                errorCurrent.clear();
                 symbChunk.clear();
                 currentTree.clear();
             } else if (symbols.get(i).getCategoria().equals("EOF")) {
-                posicion = 0;
+                pos = 0;
                 //
-                for (int j = 0; j < symbChunk.size(); j++) {
-                    System.out.println("ESTE " + symbChunk.size());
-                }
-                System.out.println("chetos");
+//                for (int j = 0; j < symbChunk.size(); j++) {
+//                    System.out.println("ESTE " + symbChunk.size());
+//                }
+                System.out.println("ESTE " + symbChunk.size());
                 if (symbChunk.size() > 1) {
                     rules();
+//                    tree.addAll(currentTree);
+                    //erroresTotal.add(errorCurrent);
+                    //errorCurrent.clear();
+
+                    lastBracket();
                     tree.addAll(currentTree);
+                } else if (symbChunk.size() == 1) {
+                    lastBracket();
+                    tree.addAll(currentTree);
+                    //erroresTotal.add(errorCurrent);
+
                 }
 
                 symbChunk.clear();
                 currentTree.clear();
-                
+
+                errorCurrent.clear();
                 break;
             } else {
                 symbChunk.add(symbols.get(i));
             }
+
+//            if (!errorCurrent.isEmpty()) {
+//                erroresTotal.add(errorCurrent);
+//            }
         }
+
+//        if (erroresTotal.size() > 0) {
+//            mostrarErrores();
+//        }
         return tree;
     }
 
-    void addCurrent(int idC, int nivelC, String textoC, int padreC) {
-        nodo = new Nodo(idC, nivelC, textoC, padreC);
+    void lastBracket() {
+        down();
+        addCurrent(id, 2, "agrupador", 1);
+        down();
+        addCurrent(id, 3, "}", 2);
+        up();
+        up();
+    }
+
+    void mostrarErrores() {
+        if (e) {
+            System.out.println("Se encontraron errores en la(s) siguiente(s) linea(s):");
+            e = false;
+        }
+
+        for (int i = 0; i < errorCurrent.size(); i++) {
+            System.out.print(errorCurrent.get(i).getValor() + " ");
+        }
+        System.out.print("\n");
+    }
+
+    void addCurrent(int idC, int nivC, String textoC, int dadC) {
+        nodo = new Nodo(idC, nivC, textoC, dadC);
         currentTree.add(nodo);
     }
 
     void tokenError(Symbol tok) {
         System.out.println("ERROR! UNEXPECTED TOKEN: " + tok.getValor());
-        System.out.println("ERROR! UNEXPECTED TOKEN: " + posicion);
+        System.out.println("ERROR! UNEXPECTED TOKEN: " + pos);
+        errorCurrent.add(tok);
     }
 
     Symbol getS(int pos) {
@@ -89,328 +154,368 @@ public class SA {
 
     void down() {
         id++;
-        nivel++;
-        padre++;
+        niv++;
+        dad++;
     }
 
     void up() {
-        nivel--;
+        niv--;
 
-        padre--;
+        dad--;
     }
 
     void lr() {
         id++;
-        posicion++;
-
-    }
-
-    void in() {
-        id++;
-        posicion++;
+        pos++;
 
     }
 
     void rules() {
+        {
+            lines();
 
-        if (mainExist == false) {
-            id++;
-            nivel++;
-
-            //nivelOrig = nivel;
-            main();
-            //nivel = nivelOrig;
-            //System.out.println("tamanio" + currentTree.size());
-        } else {
-            line();
-        }
-    }
-
-    void line() {
-        //System.out.println(getV(posicion));
-        if (getC(posicion).equals("tipo de dato")) {
-            addCurrent(id, nivel, "decl", padre);
-            //System.out.println("NIVEL: ------------ " + nivel);
-            tipodedato();
-
-            line();
-        } else if (getC(posicion).equals("id")) {
-            addCurrent(id, nivel, "asig", padre);
-            asig();
-        } else if (getV(posicion).equals("do")) {
-            addCurrent(id, nivel, "condicional", padre);
-            lr();
-            condicional();
-        } else if (getV(posicion).equals("helloThere")) {
-            addCurrent(id, nivel, "helloThere", padre);
-            lr();
-            call();
-        } else if (getV(posicion).equals("EOF")) {
-            //end
-        } else if (getV(posicion).equals("}")) {
-            closingBrack();
-
-        }
-    }
-
-    void closingBrack() {
-        addCurrent(id, nivel, getC(posicion), padre);
-        down();
-        addCurrent(id, nivel, getV(posicion), padre);
-        up();
-        if (posicion+1 < symbChunk.size() ) {
-
-            
-            if (getV(posicion).equals("EOF")) {
+            if (isV("}")) {
+                while (isV("}") && pos + 1 < symbChunk.size()) {
+                    System.out.println("tamanio" + symbChunk.size());
+                    System.out.println("pos" + pos);
+                    closeBracket();
+                    lr();
+                }
+            } else {
+                down();
+                addCurrent(id, niv, "line", dad);
+                down();
                 line();
             }
-            else if (getV(posicion).equals("}")) {
-                lr();
-                closingBrack();
-            }  
-        }
 
-    }
-
-    void call() {
-        if (getC(posicion).equals("agrupador")) {
-
-            addCurrent(id, nivel, getC(posicion), padre);
-            down();
-
-            if (getV(posicion).equals("(")) {
-
-                addCurrent(id, nivel, getV(posicion), padre);
-                up();
-                lr();
-                call();
-
-            } else if (getV(posicion).equals(")")) {
-
-                addCurrent(id, nivel, getV(posicion), padre);
-                up();
-                lr();
-                call();
-
-            }
-        } else if (getC(posicion).equals("id")) {
-            id();
-            call();
-
-        } else if (getC(posicion).equals("EOL")) {
-            eol();
-
-        } else {
-            tokenError(getS(posicion));
         }
     }
 
-    void condicional() {
-
-        addCurrent(id, nivel, "if", padre);
-        down();
-        addCurrent(id, nivel, "do", padre);
-        up();
-        sentence();
-
-    }
-
-    void sentence() {
-        //System.out.println(getV(posicion));
-        if (getC(posicion).equals("agrupador")) {
-            addCurrent(id, nivel, getC(posicion), padre);
+    void lines() {
+        if (linesExist == false) {
+            linesExist = true;
             down();
-
-            if (getV(posicion).equals("(")) {
-
-                addCurrent(id, nivel, getV(posicion), padre);
-                up();
-                lr();
-                sentence();
-            }
-        } else if (getC(posicion).equals("id")) {
-            id();
-            //down();
-            sentence();
-        } else if (getC(posicion).equals("clones") || getC(posicion).equals("lightsaber") || getC(posicion).equals("ewok") || getC(posicion).equals("wookie")) {
-            cte();
-            sentence();
-        } else if (getC(posicion).equals("comparacion aritmetica")) {
-            comp_arit();
-            sentence();
-        } else if (getC(posicion).equals("agrupador")) {
-            addCurrent(id, nivel, getC(posicion), padre);
-            down();
-
-            if (getV(posicion).equals(")")) {
-
-                addCurrent(id, nivel, getV(posicion), padre);
-                up();
-                lr();
-            }
-
-        } else {
-            System.out.println("THIS THIS THIS");
-            tokenError(getS(posicion));
+            addCurrent(id, niv, "lines", dad);
         }
-    }
-
-    void tipodedato() {
-        String tipo = getV(posicion);
-        //System.out.println("EL TIPO DE DATO ES   " + tipo);
-        if (tipo.equals("clones") || tipo.equals("wookie") || tipo.equals("ewok") || tipo.equals("lightsaber")) {
-            down();
-            addCurrent(id, nivel, "type", padre);
-            down();
-            addCurrent(id, nivel, getV(posicion), padre);
-            up();
-            up();
-            lr();
-        } else {
-            tokenError(getS(posicion));
-        }
-    }
-
-    void comp_arit() {
-        down();
-        addCurrent(id, nivel, "id", padre);
-        down();
-        addCurrent(id, nivel, getV(posicion), padre);
-        up();
-        up();
-        lr();
-    }
-
-    void id() {
-        down();
-        addCurrent(id, nivel, "id", padre);
-        down();
-        addCurrent(id, nivel, getV(posicion), padre);
-        up();
-        up();
-        lr();
-    }
-
-    void eol() {
-        down();
-        addCurrent(id, nivel, "EOL", padre);
-        down();
-        addCurrent(id, nivel, getV(posicion), padre);
-        up();
-        up();
-        lr();
-    }
-
-    void asig() {
-        ///System.out.println("token actual: " + getV(posicion) + "    pos actual" + posicion);
-        if (getC(posicion).equals("id")) {
-            id();
-            asig();
-        } else if (getC(posicion).equals("asignacion")) {
-            down();
-            addCurrent(id, nivel, "asignacion", padre);
-            down();
-            //System.out.println("WEWEWE   " + getV(posicion));
-            addCurrent(id, nivel, getV(posicion), padre);
-            up();
-            up();
-            lr();
-            asig();
-        } else if (getC(posicion).equals("operador aritmetico")) {
-            op_arit();
-            asig();
-        } else if (getC(posicion).equals("clones") || getC(posicion).equals("lightsaber") || getC(posicion).equals("ewok") || getC(posicion).equals("wookie")) {
-            cte();
-            asig();
-        } else if (getC(posicion).equals("EOL")) {
-            eol();
-        } else {
-
-            tokenError(getS(posicion));
-        }
-
-    }
-
-    void cte() {
-        down();
-        addCurrent(id, nivel, "cte", padre);
-        down();
-        addCurrent(id, nivel, getV(posicion), padre);
-        up();
-        up();
-        lr();
-    }
-
-    void op_arit() {
-        down();
-        addCurrent(id, nivel, "op_arit", padre);
-        down();
-        addCurrent(id, nivel, getV(posicion), padre);
-        up();
-        up();
-        lr();
     }
 
     void main() {
 
         if (mainExist == false) {
-            addCurrent(id, nivel, "Main", padre);
+            addCurrent(id, niv, "Main", dad);
             down();
         }
         mainExist = true;
-//        System.out.println(getV(posicion));
-        if (getC(posicion).equals("palabra reservada")) {
+//        System.out.println(getV(pos));
+        if (getC(pos).equals("palabra reservada")) {
 
-            padre = padre + 1;
-            addCurrent(id, nivel, getC(posicion), padre);
+            dad = dad + 1;
+            addCurrent(id, niv, getC(pos), dad);
             down();
             // main();
-            if (getV(posicion).equals("youngling")) {
+            if (getV(pos).equals("youngling")) {
 
-                addCurrent(id, nivel, getV(posicion), padre);
+                addCurrent(id, niv, getV(pos), dad);
                 up();
                 lr();
                 main();
-            } else if (getV(posicion).equals("iAmTheSenate")) {
+            } else if (getV(pos).equals("iAmTheSenate")) {
 
-                addCurrent(id, nivel, getV(posicion), padre);
+                addCurrent(id, niv, getV(pos), dad);
                 up();
                 lr();
                 main();
             }
-        } else if (getC(posicion).equals("agrupador")) {
+        } else if (getC(pos).equals("agrupador")) {
 
-            addCurrent(id, nivel, getC(posicion), padre);
+            addCurrent(id, niv, getC(pos), dad);
             down();
 
-            if (getV(posicion).equals("(")) {
+            if (getV(pos).equals("(")) {
 
-                addCurrent(id, nivel, getV(posicion), padre);
+                addCurrent(id, niv, getV(pos), dad);
                 up();
                 lr();
                 main();
-//        } else if (getC(posicion).equals("agrupador")) {
-//
-//            addCurrent(id, nivel, getC(posicion), padre);
-//            down();main();
-            } else if (getV(posicion).equals(")")) {
+            } else if (getV(pos).equals(")")) {
 
-                addCurrent(id, nivel, getV(posicion), padre);
+                addCurrent(id, niv, getV(pos), dad);
                 up();
                 lr();
                 main();
 
-            } else if (getV(posicion).equals("{")) {
+            } else if (getV(pos).equals("{")) {
 
-                addCurrent(id, nivel, getV(posicion), padre);
-                lr();
+                addCurrent(id, niv, getV(pos), dad);
+                //lr();
+                up();
                 up();
                 //mainExist = true;
             }
-            // System.out.println(nivel);
+            // System.out.println(niv);
         } else {
-            tokenError(getS(posicion));
+            tokenError(getS(pos));
         }
     }
 
+    boolean isC(String t) {
+        if (getC(pos).equals(t)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    boolean isV(String t) {
+        if (getV(pos).equals(t)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    void openBracket() {
+        down();
+        addCurrent(id, niv, "agrupador", dad);
+        down();
+        addCurrent(id, niv, "{", dad);
+        up();
+        up();
+        //lr();
+    }
+
+    void closeBracket() {
+        down();
+        addCurrent(id, niv, "agrupador", dad);
+        down();
+        addCurrent(id, niv, "}", dad);
+        up();
+        up();
+        //lr();
+    }
+
+    //getC(pos).equals("tipo de dato")
+    void line() {
+        if (isV("{")) {
+            openBracket();
+        }
+
+        if (isC("tipo de dato")) {
+            declOrAsig();
+        } else if (isV("do")) {
+            addCurrent(id, niv, "if", dad);
+            down();
+            addCurrent(id, niv, getC(pos), dad);
+            down();
+            addCurrent(id, niv, getV(pos), dad);
+            down();
+            up();
+            up();
+            lr();
+            isIf();
+        } else if (isV("helloThere")) {
+            isPrint();
+        }
+    }
+
+    void declOrAsig() {
+        if (getC(pos + 1).equals("id") && getC(pos + 2).equals("EOL")) {
+            addCurrent(id, niv, "decl", dad);
+            down();
+            decl();
+
+        } else {
+            addCurrent(id, niv, "asig", dad);
+            down();
+            asig();
+        }
+    }
+
+    void decl() {
+
+        if (isC("tipo de dato")) {
+            addCurrent(id, niv, "type", dad);
+            down();
+            addCurrent(id, niv, getV(pos), dad);
+            up();
+//            up();
+            lr();
+            if (isC("id")) {
+                addCurrent(id, niv, "id", dad);
+                down();
+                addCurrent(id, niv, getV(pos), dad);
+                up();
+//                up();
+                lr();
+                if (isC("EOL")) {
+                    isEOL();
+                } else {
+                    error();
+                }
+            } else {
+                error();
+            }
+        } else {
+            error();
+        }
+    }
+
+    void asig() {
+
+        if (isC("tipo de dato")) {
+            addCurrent(id, niv, "type", dad);
+            down();
+            addCurrent(id, niv, getV(pos), dad);
+            up();
+//            up();
+            lr();
+            if (isC("id")) {
+                addCurrent(id, niv, "id", dad);
+                down();
+                addCurrent(id, niv, getV(pos), dad);
+                up();
+//                up();
+                lr();
+                if (isC("asignacion")) {
+                    addCurrent(id, niv, "asignacion", dad);
+                    down();
+                    addCurrent(id, niv, getV(pos), dad);
+                    up();
+//                    up();
+                    lr();
+                    isCalc();
+//                    if (isCalc()) {
+//                        //isEOL();
+//                    }
+                } else {
+                    error();
+                }
+            } else {
+                error();
+            }
+        } else {
+            error();
+        }
+    }
+
+    void isCalc() {
+        if (boolVal()) {
+            isVal();
+        } else if (isC("EOL")) {
+            isEOL();
+        } else {
+            error();
+        }
+    }
+
+    boolean boolVal() {
+        if (isC("clones") || isC("lightsaber") || isC("ewok") || isC("wookie") || isC("id")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    void opArit() {
+        if (isC("operador aritmetico")) {
+            addCurrent(id, niv, "op_arit", dad);
+            down();
+            addCurrent(id, niv, getV(pos), dad);
+            up();
+            lr();
+            isVal();
+        } else if (isC("EOL")) {
+            isEOL();
+        } else if (isC("comparacion aritmetica")) {
+            addCurrent(id, niv, "comp_arit", dad);
+            down();
+            addCurrent(id, niv, getV(pos), dad);
+            up();
+            lr();
+            isVal();
+        } else if (isV(")")) {
+            addCurrent(id, niv, getC(pos), dad);
+            down();
+            addCurrent(id, niv, getV(pos), dad);
+            up();
+            lr();
+            if (isV("{")) {
+                openBracket();
+            }
+
+        } else {
+            error();
+        }
+    }
+
+    void isVal() {
+        if (isC("clones") || isC("lightsaber") || isC("ewok") || isC("wookie")) {
+            addCurrent(id, niv, "val", dad);
+            down();
+            addCurrent(id, niv, "cte", dad);
+            down();
+            addCurrent(id, niv, getV(pos), dad);
+            up();
+            up();
+            lr();
+            opArit();
+        } else if (isC("id")) {
+            addCurrent(id, niv, "val", dad);
+            down();
+            addCurrent(id, niv, "id", dad);
+            down();
+            addCurrent(id, niv, getV(pos), dad);
+            up();
+            up();
+            lr();
+            opArit();
+
+        } else {
+            error();
+        }
+
+    }
+
+//    void eol() {
+//        down();
+//        addCurrent(id, niv, "EOL", dad);
+//        down();
+//        addCurrent(id, niv, getV(pos), dad);
+//        up();
+//        up();
+//        //lr();
+//    }
+    void isEOL() {
+//        down();
+        addCurrent(id, niv, "EOL", dad);
+        down();
+        addCurrent(id, niv, getV(pos), dad);
+        up();
+        up();
+//        up();
+    }
+
+    void error() {
+        errorCurrent = symbChunk;
+
+    }
+
+    void isIf() {
+        if (isV("(")) {
+            down();
+            addCurrent(id, niv, getC(pos), dad);
+            down();
+            addCurrent(id, niv, getV(pos), dad);
+            up();
+            up();
+            lr();
+            isVal();
+        } else {
+            error();
+        }
+    }
+
+    void isPrint() {
+//
+    }
 }

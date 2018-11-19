@@ -27,7 +27,9 @@ public class JabbaWard {
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
           //String filePath = ".\\prueba.jarjar";
-          String filePath = ".\\noExam.jarjar";
+//          String filePath = ".\\noExam.jarjar";
+//          String filePath = ".\\for.jarjar";
+            String filePath = ".\\prueba.jarjar";
 //String filePath = ".\\z.jarjar";
 //        String filePath = ".\\test4.jarjar";
 //        String filePath = ".\\test3.jarjar";
@@ -50,51 +52,56 @@ public class JabbaWard {
 //        ParserRafa pr = new ParserRafa(tablaSimbolos);
 //         System.out.println(pr.isS());
         
-        ParserRafa pr = new ParserRafa(tablaSimbolos);
-        if (pr.isS()) {System.out.println("EL CODIGO ES CORRECTO!");}
-        else {System.out.println("AVISO: Existen errores en el codigo.");}
+//        ParserRafa2 pr = new ParserRafa2(tablaSimbolos);
+//        if (pr.isS()) {System.out.println("EL CODIGO ES CORRECTO!");}
+//        else {System.out.println("AVISO: Existen errores en el codigo.");}
+//                 ArrayList<Nodo> tree = pr.tree;
+//        for (Nodo nodo : tree) {
+//         System.out.println(nodo.print());
+//        }
         
-        SA p = new SA(tablaSimbolos);
-        ArrayList<Nodo> tree = new ArrayList<Nodo>();
         
-        tree = p.compare();
-        
-        PrintWriter writer2 = new PrintWriter(new FileWriter(".\\tree.txt"));
-          
-       String format2 = "%-20s";
-        
-       writer2.println("----------------------------TREE----------------------------");
-       writer2.println("NIVEL-------------------------------------------------------");
-       //System.out.println("NuMERO DE NODOS EN tree" + tree.size());
-       int nivel = 0;
-        for (int i = 0; i < tree.size(); i++) {
-            if (nivel<tree.get(i).getNivel()) {
-                nivel = tree.get(i).getNivel();
-            }
-            
-        }
-        //System.out.println("EL NIVEL ES: "+nivel);
-         
-        //String format2 = "%-10s";
-        for (int nivelActual = 0; nivelActual <= nivel; nivelActual++) {
-            writer2.print(nivelActual + "\t");   
-            for (int i = 0; i < tree.size(); i++) {
-                if (nivelActual == tree.get(i).getNivel()){
-                    writer2.printf(format2, tree.get(i).getTexto()+ "," + tree.get(i).getId());
-                }
-
-            }
-            writer2.println();
-        }
-//                System.out.println("El tercer id es " + tree.get(7).getTexto());
-//                System.out.println("El nodo padre es " + tree.get(tree.get(7).getPadre()).getTexto());
-        writer2.close();
+       Syntax p = new Syntax(tablaSimbolos);
+      ArrayList<Nodo> tree2 = new ArrayList<Nodo>();      
+       tree2 = p.compare();     
+       
+       
+//        PrintWriter writer2 = new PrintWriter(new FileWriter(".\\tree.txt"));
+//          
+//       String format2 = "%-20s";
+//        
+//       writer2.println("----------------------------TREE----------------------------");
+//       writer2.println("NIVEL-------------------------------------------------------");
+//       //System.out.println("NuMERO DE NODOS EN tree" + tree.size());
+//       int nivel = 0;
+//        for (int i = 0; i < tree.size(); i++) {
+//            if (nivel<tree.get(i).getNivel()) {
+//                nivel = tree.get(i).getNivel();
+//            }
+//            
+//        }
+//        //System.out.println("EL NIVEL ES: "+nivel);
+//         
+//        //String format2 = "%-10s";
+//        for (int nivelActual = 0; nivelActual <= nivel; nivelActual++) {
+//            writer2.print(nivelActual + "\t");   
+//            for (int i = 0; i < tree.size(); i++) {
+//                if (nivelActual == tree.get(i).getNivel()){
+//                    writer2.printf(format2, tree.get(i).getTexto()+ "," + tree.get(i).getId());
+//                }
+//
+//            }
+//            writer2.println();
+//        }
+////                System.out.println("El tercer id es " + tree.get(7).getTexto());
+////                System.out.println("El nodo padre es " + tree.get(tree.get(7).getPadre()).getTexto());
+//        writer2.close();
         
         PrintWriter writer3 = new PrintWriter(new FileWriter(".\\nodos.txt"));
         
-        for (int i = 0; i < tree.size(); i++) {
+        for (int i = 0; i < tree2.size(); i++) {
 //            writer3.println(tree.get(i).getId() + "\t" + tree.get(i).getTexto() + "\t\t" + tree.get(i).getNivel());
-            writer3.printf(format, tree.get(i).getId(), tree.get(i).getTexto(), tree.get(i).getNivel());
+            writer3.printf(format, tree2.get(i).getId(), tree2.get(i).getTexto(), tree2.get(i).getNivel());
             //writer3.println();
         }
         

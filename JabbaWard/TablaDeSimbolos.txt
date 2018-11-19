@@ -7,28 +7,46 @@ ENTRADA    CATEGORIA                 VALOR
 4          agrupador                 )     
 5          agrupador                 {     
 6          tipo de dato              clones 
-7          id                        _i    
+7          id                        _x    
 8          asignacion                =     
-9          clones                    0     
-10         EOL                       ~endor 
-11         palabra reservada         do    
-12         agrupador                 (     
-13         id                        _i    
-14         comparacion aritmetica    <     
-15         clones                    10    
-16         agrupador                 )     
-17         agrupador                 {     
-18         id                        _i    
-19         asignacion                =     
-20         id                        _i    
-21         operador aritmetico       +     
-22         clones                    1     
-23         EOL                       ~endor 
-24         palabra reservada         helloThere 
-25         agrupador                 (     
-26         id                        _i    
-27         agrupador                 )     
-28         EOL                       ~endor 
-29         agrupador                 }     
-30         agrupador                 }     
-31         EOF                       EOF   
+9          clones                    42    
+10         operador aritmetico       +     
+11         id                        _y    
+12         operador aritmetico       +     
+13         id                        _pa   
+14         operador aritmetico       +     
+15         id                        _pe   
+16         operador aritmetico       +     
+17         clones                    69    
+18         operador aritmetico       +     
+19         id                        _69   
+20         EOL                       ~endor 
+21         tipo de dato              clones 
+22         id                        _x    
+23         asignacion                =     
+24         clones                    42    
+25         EOL                       ~endor 
+26         tipo de dato              clones 
+27         id                        _x    
+28         asignacion                =     
+29         clones                    42    
+30         EOL                       ~endor 
+31         tipo de dato              clones 
+32         id                        _x    
+33         EOL                       ~endor 
+34         tipo de dato              clones 
+35         id                        _x    
+36         EOL                       ~endor 
+37         tipo de dato              clones 
+38         id                        _x    
+39         EOL                       ~endor 
+40         tipo de dato              clones 
+41         id                        _x    
+42         asignacion                =     
+43         clones                    42    
+44         EOL                       ~endor 
+45         tipo de dato              clones 
+46         id                        _x    
+47         EOL                       ~endor 
+48         agrupador                 }     
+49         EOF                       EOF   

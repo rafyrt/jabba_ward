@@ -15,6 +15,7 @@ public class Nodo {
     String texto;
     int padre;
     int hijo;
+    int simbolo;
     
     public Nodo (int id, int nivel, String texto, int padre){
         this.id = id;
@@ -23,6 +24,17 @@ public class Nodo {
         this.padre = padre;
     }
     
+        public String print(){
+        return "id: " +this.id+ ", nivel: "+this.nivel+ ", texto: "+this.texto+ ", padre: "+this.padre;
+    }
+    
+        public Nodo (int id, int nivel, String texto, int padre, int simbolo){
+        this.id = id;
+        this.nivel = nivel;
+        this.texto = texto;
+        this.padre = padre;
+        this.simbolo = simbolo;
+    }
     public Nodo (int id, int nivel, String texto){
         this.id = id;
         this.nivel = nivel;
