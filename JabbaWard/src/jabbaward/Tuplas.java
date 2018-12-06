@@ -10,6 +10,7 @@ package jabbaward;
  * @author Felipe
  */
 public class Tuplas {
+
     String operador;
     String operando1;
     String operando2;
@@ -17,44 +18,80 @@ public class Tuplas {
     String L;
     int posNodos;
     int posSimbolos;
-    
-    public Tuplas(String operador, String operando1, String operando2, String resultado){
+    String trueFalse;
+
+    public Tuplas(String operador, String operando1, String operando2, String resultado) {
         this.operador = operador;
         this.operando1 = operando1;
         this.operando2 = operando2;
         this.resultado = resultado;
     }
-    
-    public Tuplas(String operador, String operando1, String resultado){
+
+    public Tuplas() {
+
+    }
+
+    public Tuplas(String operador, String operando1, String operando2, String resultado, boolean trueFalse) {
+        this.operador = operador;
+        this.operando1 = operando1;
+        this.operando2 = operando2;
+        this.resultado = resultado;
+        this.trueFalse = "{true|false}";
+        this.L = null;
+    }
+
+    public Tuplas(String operador, String operando1, String resultado) {
         this.operador = operador;
         this.operando1 = operando1;
         this.operando2 = " ";
         this.resultado = resultado;
+        this.L = null;
     }
-    
-        public Tuplas(String operador, String resultado){
+
+    public Tuplas(String operador, String resultado) {
         this.operador = operador;
         this.operando1 = " ";
         this.operando2 = " ";
         this.resultado = resultado;
+        this.L = null;
     }
-    
-    
-    public Tuplas(String L, int posNodos, int posSim){
+
+    public Tuplas(String L) {
         this.L = L;
-        this.posNodos = posNodos;
-        this.posSimbolos = posSim;
+        //this.posNodos = posNodos;
+        //this.posSimbolos = posSim;
     }
-    
-    public String getL(){
+
+    public String getL() {
         return this.L;
     }
-    
-    public String getTuplas(){
-        if (this.L==null){
-        return "(" + this.operador + ", " + this.operando1 + ", " + this.operando2 +  ", " + this.resultado + ")";
+
+    public String getOp() {
+        return this.operador;
+    }
+
+    public String getOp1() {
+        return this.operando1;
+    }
+
+    public String getOp2() {
+        return this.operando2;
+    }
+
+    public String getR() {
+        return this.resultado;
+    }
+
+    public String getTuplas() {
+        if (this.L == null) {
+            if (this.trueFalse == null) {
+                return "(" + this.operador + ", " + this.operando1 + ", " + this.operando2 + ", " + this.resultado + ")";
+            } else {
+                return "(" + this.operador + ", " + this.operando1 + ", " + this.operando2 + ", " + this.resultado + ")" + this.trueFalse;
+            }
+        } else {
+            return this.L;
         }
-        return this.L + ":";
-        
+
     }
 }

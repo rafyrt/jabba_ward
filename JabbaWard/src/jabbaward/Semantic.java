@@ -14,26 +14,29 @@ import java.util.List;
  */
 public class Semantic {
 
+    String recentVT;
     boolean error = false;
     ArrayList<Symbol> symbols;
     ArrayList<Nodo> tree;
     ArrayList<Var> variables = new ArrayList<>();
-
+    ArrayList<Secciones> seccionesL = new ArrayList<>();
     ArrayList<Var> variablesTemporales = new ArrayList<>();
-
+    Secciones seccionL;
     ArrayList<Tuplas> tuplas = new ArrayList<>();
-
+    ArrayList<Tuplas> tuplasFor = new ArrayList<>();
+    ArrayList<Tuplas> tuplasCond = new ArrayList<>();
     String asigValor;
     String asigTipo;
     String vt = null;
     Var variable;
     Tuplas tupla;
     int lCount = 1;
-    int tCount = 0;
+    int tCount = 1;
     int varId = 0;
     int posTemp;
+    int indexL = 0;
     String currentVar;
-    String[] textos = {"decl", "asign", "ID", "Constant", "FOR", "IF", "PRINT", "WHILE"};
+    String[] textos = {"decl", "asign", "ID", "Constant", "FOR", "IF", "PRINT", "WHILE", "}"};
     int pos = 0;
     String currentL;
     String currentText;
@@ -79,7 +82,45 @@ public class Semantic {
         return ct;
     }
 
+    private void findAndCreateLs() {
+        int posicionArbol = 0;
+        int numDeBrackets = 0;
+        while (!(tree.get(posicionArbol).getTexto().equals("{"))) {
+            posicionArbol++;
+        }
+        posicionArbol++;
+        for (int i = posicionArbol; i < tree.size(); i++) {
+            if (tree.get(i).getTexto().equals("{")) {
+                seccionL = new Secciones(nuevaL(), i, tree.get(i).getSimbolo());
+                seccionesL.add(seccionL);
+                i++;
+                numDeBrackets = 0;
+                for (int j = i; j < tree.size(); j++) {
+                    if (tree.get(j).getTexto().equals("{")) {
+                        numDeBrackets++;
+                    } else if (tree.get(j).getTexto().equals("}") && numDeBrackets == 0) {
+                        seccionL = new Secciones(nuevaL(), j, tree.get(j).getSimbolo());
+                        seccionesL.add(seccionL);
+                        numDeBrackets--;
+                        j = tree.size();
+                    } else if (tree.get(j).getTexto().equals("}")) {
+                        numDeBrackets--;
+                    }
+                }
+            }
+        }
+        // Comprobando que se estan creando las Ls, estas.
+        // Se crean en orden.
+        System.out.println("LAS Ls");
+        for (int i = 0; i < seccionesL.size(); i++) {
+            System.out.println(seccionesL.get(i).print());
+        }
+        System.out.println("LAS Ls");
+
+    }
+
     public ArrayList<Tuplas> start() {
+        findAndCreateLs();
         for (pos = 0; pos + 1 < tree.size(); pos++) {
             if (compareTexto(pos)) {
                 //System.out.println(tree.get(pos).texto);
@@ -121,34 +162,26 @@ public class Semantic {
 
     }
 
-    private void findL(int posIn) {
-
-        for (int p = posIn; p + 1 < tree.size(); p++) {
-            //
-        }
-    }
-
-    public void crearL() {
-
-    }
-
     public void rules() {
         posTemp = pos;
         if (currentText.equals("decl")) {
             decl();
+            //DONEEEEEEEEEEEEEEE
             //do this
         } else if (currentText.equals("asign")) {
             asig();
+            //DONEEEEEEEEEEEEEEE
             //do this
         } else if (currentText.equals("Constant")) {
-            constant();
+            //constant();
             //do this
         } else if (currentText.equals("ID")) {
             isId();
             //do this
         } else if (currentText.equals("FOR")) {
-            System.out.println("FOR FOR FOR FOR FOR");
-            System.out.println("CURRENT TEXT> " + currentText);
+            //DONEEEEEEEEEEEEEEE
+            //System.out.println("FOR FOR FOR FOR FOR");
+            //System.out.println("CURRENT TEXT> " + currentText);
             isFor();
             //do this
         } else if (currentText.equals("IF")) {
@@ -163,6 +196,52 @@ public class Semantic {
             System.out.println("WHILE WHILE WHILE");
             isWhile();
             //do this
+        } else if (currentText.equals("{")) {
+            // openBracket stuff
+        } else if (currentText.equals("}")) {
+            System.out.println("WUBBA LUBBA DUB DUB!!!");
+            System.out.println(posTemp);
+            System.out.println(tree.get(posTemp).id);
+            for (int i = 0; i < seccionesL.size(); i++) {
+                System.out.println("ENTRA FOR 1");
+                if (seccionesL.get(i).getPosNodo() == tree.get(posTemp).id) {
+//                    System.out.println(seccionesL.get(0).L);
+//                    System.out.println(seccionesL.get(i).getTupis().isEmpty());
+//                    System.out.println(seccionesL.get(i).getTupis());
+                    System.out.println("TAMANO DE TUPIS");
+                    System.out.println(seccionesL.get(i).getTupis().size());
+//                    System.out.println(seccionesL.get(i).getTupis().get(0).getOp());
+                    if (!(seccionesL.get(i).getTupis().isEmpty())) {
+                        for (int j = 0; j < seccionesL.get(i).getTupis().size(); j++) {
+                            System.out.println("ENTRA FOR 2");
+                            System.out.println(seccionesL.get(i).getTupis().get(j).getOp());
+                            //tupla = new Tuplas(seccionesL.get(i).getTupis().get(j).getOp(), seccionesL.get(i).getTupis().get(j).operando1, seccionesL.get(i).getTupis().get(j).operando2, seccionesL.get(i).getTupis().get(j).resultado);
+                            tupla = new Tuplas(seccionesL.get(i).getTupis().get(j).getTuplas());
+                            tuplas.add(tupla);
+                        }
+                    }
+
+                    if (!(seccionesL.get(i).getTupis2().isEmpty())) {
+                        for (int j = 0; j < seccionesL.get(i).getTupis2().size(); j++) {
+                            System.out.println("ENTRA FOR 2");
+                            System.out.println(seccionesL.get(i).getTupis2().get(j).getOp());
+//                            tupla = new Tuplas(seccionesL.get(i).getTupis2().get(j).getOp(), seccionesL.get(i).getTupis2().get(j).operando1, seccionesL.get(i).getTupis2().get(j).operando2, seccionesL.get(i).getTupis2().get(j).resultado);
+                            tupla = new Tuplas(seccionesL.get(i).getTupis2().get(j).getTuplas());
+                            tuplas.add(tupla);
+                        }
+                    }
+
+//                    if (!(seccionesL.get(i).getTupis().isEmpty() && (seccionesL.get(i).getTupis().size() > 2))) {
+//                        tupla = new Tuplas(seccionesL.get(i).L);
+//                        tuplas.add(tupla);
+//
+//                    }
+                    tupla = new Tuplas(seccionesL.get(i).L);
+                    tuplas.add(tupla);
+                }
+            }
+
+            // closeBracket stuff
         } else {
             //wtf?
             System.out.println("ALGO ESTAS HACIENDO MAL WEY!!!");
@@ -256,7 +335,7 @@ public class Semantic {
 //        System.out.println(symbols.get(posSimb + 2).getValor());
         if (yaDeclarada(getVal())) {
             if (asigTipo.equals("clones")) {
-                asigValores("clones");
+                asigValores("clones", tuplas);
                 variable = new Var(varId, symbols.get(posSimb).getValor(), symbols.get(posSimb - 1).getValor(), true);
                 variables.add(variable);
                 varId++;
@@ -287,7 +366,7 @@ public class Semantic {
 
     }
 
-    private void asigValores(String tipo) {
+    private void asigValores(String tipo, ArrayList<Tuplas> tupi) {
         ArrayList<Symbol> valAsig = new ArrayList<Symbol>();
         ArrayList<Symbol> simbAsig = new ArrayList<Symbol>();
         posSimbTemp = posSimb;
@@ -316,7 +395,7 @@ public class Semantic {
                 }
             }
             //System.out.println("YES YES YES");
-            pemdas(simbAsig);
+            pemdas(simbAsig, tupi);
 
         } else {
 //            System.out.println("---ERROR SEMANTICO---");
@@ -326,9 +405,48 @@ public class Semantic {
         }
     }
 
+    private void asigValoresPar(String tipo, ArrayList<Tuplas> tupi) {
+        ArrayList<Symbol> valAsig = new ArrayList<Symbol>();
+        ArrayList<Symbol> simbAsig = new ArrayList<Symbol>();
+        posSimbTemp = posSimb;
+        posSimbTemp++;
+
+        // if (getValT().equals("=")) {
+        //posSimbTemp++;
+        while (!(getCatT().equals("agrupador"))) {
+            simbAsig.add(symbols.get(posSimbTemp));
+            if (!getCatT().equals("operador aritmetico")) {
+                valAsig.add(symbols.get(posSimbTemp));
+            }
+            posSimbTemp++;
+        }
+        //}
+        if (isSameType(valAsig, tipo)) {
+            for (int i = 0; i < valAsig.size(); i++) {
+                if ("id".equals(valAsig.get(i).categoria)) {
+
+                    if (!yaInicializada(valAsig.get(i).valor)) {
+                        System.out.println("---ERROR SEMANTICO---");
+                        System.out.println("Variable " + valAsig.get(i).valor + " no esta inicializada y no puede utilizarse en operaciones.");
+                        error();
+                        error = true;
+                    }
+                }
+            }
+            //System.out.println("YES YES YES");
+            pemdas(simbAsig, tupi);
+
+        } else {
+//            System.out.println("---ERROR SEMANTICO---");
+//            System.out.println("Los valores deben de corresponder al mismo tipo de dato al que se desa asignar.");
+            error();
+            error = true;
+        }
+    }
 //    private boolean isSameType(String tipo) {
 //
 //    }
+
     private boolean isSameType(ArrayList<Symbol> valores, String tipo) {
         for (int i = 0; i < valores.size(); i++) {
             if (valores.get(i).getCategoria().equals(asigTipo)) {
@@ -370,14 +488,14 @@ public class Semantic {
         return true;
     }
 
-    private ArrayList<Symbol> opArit(ArrayList<Symbol> valores, String valor, String nombre) {
+    private ArrayList<Symbol> opArit(ArrayList<Symbol> valores, String valor, String nombre, ArrayList<Tuplas> tupi) {
         for (int i = 0; i < valores.size(); i++) {
             if (valores.get(i).getValor().equals(valor)) {
                 vt = nuevaVT();
                 variable = new Var(varId, vt, null, true);
                 variablesTemporales.add(variable);
                 tupla = new Tuplas(nombre, valores.get(i - 1).getValor(), valores.get(i + 1).getValor(), vt);
-                tuplas.add(tupla);
+                tupi.add(tupla);
                 valores.remove(i + 1);
                 valores.remove(i);
                 valores.remove(i - 1);
@@ -407,7 +525,7 @@ public class Semantic {
         return valores;
     }
 
-    private void pemdas(ArrayList<Symbol> valores) {
+    private void pemdas(ArrayList<Symbol> valores, ArrayList<Tuplas> tupi) {
         //int i = 0;
         if (valores.size() > 1) {
 
@@ -419,7 +537,7 @@ public class Semantic {
                         parentesis.add(valores.get(j));
                         j++;
                     }
-                    pemdas(parentesis);
+                    pemdas(parentesis, tupi);
                     while (!valores.get(j).getValor().equals(")")) {
                         valores.remove(j);
                         j++;
@@ -436,12 +554,12 @@ public class Semantic {
             //while (i < valores.size()) {
             //int tamano = valores.size();
             while (valores.size() > 1) {
-                valores = opArit(valores, "^", "exponencial");
-                valores = opArit(valores, "*", "multiplicacion");
-                valores = opArit(valores, "/", "division");
-                valores = opArit(valores, "+", "suma");
-                valores = opArit(valores, "-", "resta");
-                valores = opArit(valores, "*", "multiplicacion");
+                valores = opArit(valores, "^", "exponencial", tupi);
+                valores = opArit(valores, "*", "multiplicacion", tupi);
+                valores = opArit(valores, "/", "division", tupi);
+                valores = opArit(valores, "+", "suma", tupi);
+                valores = opArit(valores, "-", "resta", tupi);
+                valores = opArit(valores, "*", "multiplicacion", tupi);
 //            valores = division(valores);
 //            valores = suma(valores);
 //            valores = resta(valores);
@@ -463,7 +581,7 @@ public class Semantic {
                     parentesis.add(valores.get(j));
                     j++;
                 }
-                pemdas(parentesis);
+                pemdas(parentesis, null);
                 while (!valores.get(j).getValor().equals(")")) {
                     valores.remove(j);
                     j++;
@@ -608,7 +726,7 @@ public class Semantic {
 
     private void asig() {
         posTemp = pos;
-        System.out.println(pos);
+        // System.out.println(pos);
         posSimb = tree.get(pos + 1).getSimbolo();
 //        posTemp++;
 //        posSimb = tree.get(posTemp).getSimbolo();
@@ -619,7 +737,7 @@ public class Semantic {
             asigTipo = obtenTipo(symbols.get(posSimb).getValor());
 
             if (asigTipo.equals("clones")) {
-                asigValores("clones");
+                asigValores("clones", tuplas);
 //                variable = new Var(varId, symbols.get(posSimb).getValor(), symbols.get(posSimb + 1).getValor(), false);
 //                variables.add(variable);
                 if (error == false) {
@@ -650,35 +768,275 @@ public class Semantic {
         }
     }
 
+    private void asigFor(ArrayList<Tuplas> tupi) {
+        posTemp = pos;
+        //System.out.println("ASig FORRRR");
+        //System.out.println(pos);
+        posSimb = tree.get(pos + 1).getSimbolo();
+//        posTemp++;
+//        posSimb = tree.get(posTemp).getSimbolo();
+//        System.out.println(tree.get(posTemp).getTexto());
+//        System.out.println(tree.get(posTemp).getSimbolo());
+        //asigTipo = symbols.get(posSimb - 1).getValor();
+        if (!yaDeclarada(symbols.get(posSimb).getValor())) {
+            asigTipo = obtenTipo(symbols.get(posSimb).getValor());
+
+            if (asigTipo.equals("clones")) {
+                asigValores("clones", tupi);
+//                variable = new Var(varId, symbols.get(posSimb).getValor(), symbols.get(posSimb + 1).getValor(), false);
+//                variables.add(variable);
+                if (error == false) {
+                    tupla = new Tuplas("asig", asigValor, symbols.get(posSimb).getValor());
+                    tupi.add(tupla);
+                }
+
+            } else if (asigTipo.equals(symbols.get(posSimb + 2).getCategoria())) {
+//                variable = new Var(varId, symbols.get(posSimb).getValor(), symbols.get(posSimb - 1).getValor(), true);
+//                variables.add(variable);
+//                varId++;
+                if (error == false) {
+                    asigValor = symbols.get(posSimb + 2).getValor();
+                    tupla = new Tuplas("asig", asigValor, symbols.get(posSimb).getValor());
+                    tupi.add(tupla);
+                }
+
+            } else {
+                System.out.println("---ERROR SEMANTICO---");
+                System.out.println("El nombre de la variable \"" + symbols.get(posSimb).getValor() + "\" debe ser unica.");
+                error();
+            }
+
+//            while (!currentText.equals("=")) {
+//                posTemp++;
+//                getCurrentTextTemporal();
+//            }
+        }
+    }
+
     private void constant() {
     }
 
     private void isId() {
     }
 
+    private void compValores(String tipo, ArrayList<Tuplas> tupi) {
+        ArrayList<Symbol> valAsig = new ArrayList<Symbol>();
+        ArrayList<Symbol> simbAsig = new ArrayList<Symbol>();
+        posSimbTemp = posSimb;
+        //posSimbTemp++;
+
+        //if (getValT().equals("=")) {
+        //posSimbTemp++;
+        while (!(getCatT().equals("EOL") || (getCatT().equals("agrupador")) || (getCatT().equals("comparacion aritmetica")))) {
+            simbAsig.add(symbols.get(posSimbTemp));
+            if (!getCatT().equals("operador aritmetico")) {
+                valAsig.add(symbols.get(posSimbTemp));
+            }
+            posSimbTemp++;
+        }
+        //}
+        if (isSameType(valAsig, tipo)) {
+            for (int i = 0; i < valAsig.size(); i++) {
+                if ("id".equals(valAsig.get(i).categoria)) {
+
+                    if (!yaInicializada(valAsig.get(i).valor)) {
+                        System.out.println("---ERROR SEMANTICO---");
+                        System.out.println("Variable " + valAsig.get(i).valor + " no esta inicializada y no puede utilizarse en operaciones.");
+                        error();
+                        error = true;
+                    }
+                }
+            }
+            //System.out.println("YES YES YES");
+            pemdas(simbAsig, tupi);
+
+        } else {
+//            System.out.println("---ERROR SEMANTICO---");
+//            System.out.println("Los valores deben de corresponder al mismo tipo de dato al que se desa asignar.");
+            error();
+            error = true;
+        }
+    }
+
+    private void comp(ArrayList<Tuplas> tupi) {
+
+        String primeraVt;
+        String segundaVt;
+        //System.out.println("1era VT " + getSimboloValor(posSimb));
+        if (!(getSimboloCategoria(posSimb + 1).equals("comparacion aritmetica"))) {
+            compValores(asigTipo, tupi);
+            primeraVt = vt;
+        } else {
+            primeraVt = getSimboloValor(posSimb);
+        }
+
+        posSimb++;
+        posSimb++;
+        //System.out.println("2da VT " + getSimboloValor(posSimb));
+        if (!(getSimboloCategoria(posSimb + 1).equals("EOL"))) {
+            //System.out.println("2da VT " + getSimboloValor(posSimb));
+            compValores(asigTipo, tupi);
+            segundaVt = vt;
+        } else {
+            segundaVt = getSimboloValor(posSimb);
+        }
+        recentVT = nuevaVT();
+        //if (error == false) {
+        tupla = new Tuplas("lessThan", primeraVt, segundaVt, recentVT, true);
+        tuplasCond.add(tupla);
+        tuplas.add(tupla);
+    }
+
     private void isFor() {
-        while (!currentText.equals("asign")) {
+        while (!(tree.get(posTemp).texto.equals("asign"))) {
             posTemp++;
             getCurrentTextTemporal();
         }
         pos = posTemp;
         asig();
-        while (!currentText.equals("EOL")) {
+        while (!(tree.get(posTemp).texto.equals("EOL"))) {
             posTemp++;
+            getCurrentTextTemporal();
+        }
+        posSimb = tree.get(posTemp).simbolo;
+        posSimb++;
+        //
+        //
+        // HACER LAS COMPARACIONES ARITMETICAS, VERIFICAR QUE SEAN EL MISMO TIPO Y LAS VARIABLES ESTEN DECLARADAS.
+        //
+        //
+
+        // }
+        asigTipo = "clones";
+        comp(tuplas);
+
+        tupla = new Tuplas("if_true", recentVT, seccionesL.get(indexL).L);
+        tuplas.add(tupla);
+        tuplasCond.add(tupla);
+        indexL++;
+        tupla = new Tuplas("if_false", recentVT, seccionesL.get(indexL).L);
+        tuplas.add(tupla);
+        tuplasCond.add(tupla);
+//        tupla = new Tuplas("if_true", recentVT, seccionesL.get(indexL).L);
+//        tuplas.add(tupla);
+//        tupla = new Tuplas("if_false", recentVT, seccionesL.get(indexL).L);
+//        tuplas.add(tupla);
+
+        while (!(tree.get(posTemp).texto.equals("asign"))) {
+            posTemp++;
+            //getCurrentTextTemporal();
+        }
+        //System.out.println("asignnnnnnn");
+        //System.out.println(tree.get(posTemp).texto);
+        //posTemp++;
+        //System.out.println(posTemp);
+        pos = posTemp;
+        asigFor(tuplasFor);
+
+        //tupla = new Tuplas("if_true", recentVT, seccionesL.get(indexL).L);
+        //tuplasFor.add(tupla);
+        //tuplasCond.add(tupla);
+        //tupla = new Tuplas("if_false", recentVT, seccionesL.get(indexL).L);
+        //tuplasFor.add(tupla);
+        // tuplasCond.add(tupla);
+        System.out.println("TUPLAS EN FOR");
+        for (int i = 0; i < tuplasFor.size(); i++) {
+            System.out.println(tuplasFor.get(i).getTuplas());
+        }
+
+        //ArrayList<Tuplas> tupitas = new ArrayList<Tuplas>;
+        seccionesL.get(indexL).addTuplas(new ArrayList<Tuplas>(tuplasFor), new ArrayList<Tuplas>(tuplasCond));
+        //seccionesL.get(indexL).addTuplas(new ArrayList<Tuplas>(tuplasCond));
+        //
+        indexL++;
+
+        while (!(getSimboloCategoria(posSimb).equals("EOL"))) {
+            posSimb++;
+            getCurrentTextTemporal();
+        }
+        while ((!getSimboloValor(posSimb).equals("{"))) {
+            posSimb++;
             getCurrentTextTemporal();
         }
 
-        while (!currentText.equals("{")) {
+        while ((!tree.get(posTemp).texto.equals("{"))) {
             posTemp++;
             getCurrentTextTemporal();
         }
+        pos = posTemp;
+        System.out.println("POSICION GENERAL");
+        System.out.println(pos);
+        //pepepepepe;
+
+        for (int i = 0; i < seccionesL.size(); i++) {
+            if (seccionesL.get(i).getPosNodo() == tree.get(posTemp).id) {
+                tupla = new Tuplas(seccionesL.get(i).L);
+
+                System.out.println("SECCION");
+                System.out.println(seccionesL.get(i).L);
+            }
+
+        }
+        tuplas.add(tupla);
 
         //CREATE THE TWO LS's
-        
         System.out.println(getSimboloValor(posSimb));
+        tuplasFor.clear();
+        tuplasCond.clear();
     }
 
     private void isIf() {
+        while (!(tree.get(posTemp).texto.equals("("))) {
+            posTemp++;
+            getCurrentTextTemporal();
+        }
+        pos = posTemp;
+
+        posSimb = tree.get(posTemp).simbolo;
+        System.out.println("SIMBOLOOOOOOOO");
+        System.out.println(getSimboloValor(posSimb));
+        posSimb++;
+        System.out.println(getSimboloValor(posSimb));
+        System.out.println(getSimboloCategoria(posSimb));
+        asigTipo = getSimboloCategoria(posSimb);
+        comp(tuplas);
+
+        tupla = new Tuplas("if_true", recentVT, seccionesL.get(indexL).L);
+        tuplas.add(tupla);
+        //tuplasCond.add(tupla);
+        indexL++;
+        tupla = new Tuplas("if_false", recentVT, seccionesL.get(indexL).L);
+        tuplas.add(tupla);
+
+        while ((!getSimboloValor(posSimb).equals("{"))) {
+            posSimb++;
+            getCurrentTextTemporal();
+        }
+
+        while ((!tree.get(posTemp).texto.equals("{"))) {
+            posTemp++;
+            getCurrentTextTemporal();
+        }
+        pos = posTemp;
+        System.out.println("POSICION GENERAL");
+        System.out.println(pos);
+        //pepepepepe;
+
+        for (int i = 0; i < seccionesL.size(); i++) {
+            if (seccionesL.get(i).getPosNodo() == tree.get(posTemp).id) {
+                tupla = new Tuplas(seccionesL.get(i).L);
+
+                System.out.println("SECCION");
+                System.out.println(seccionesL.get(i).L);
+            }
+
+        }
+        tuplas.add(tupla);
+
+        //CREATE THE TWO LS's
+        System.out.println(getSimboloValor(posSimb));
+        tuplasFor.clear();
+        tuplasCond.clear();
     }
 
     private void isPrint() {
@@ -688,10 +1046,10 @@ public class Semantic {
     }
 
     private String getSimboloValor(int p) {
-        return symbols.get(posSimb).getValor();
+        return symbols.get(p).getValor();
     }
 
     private String getSimboloCategoria(int p) {
-        return symbols.get(posSimb).getCategoria();
+        return symbols.get(p).getCategoria();
     }
 }

@@ -23,3 +23,24 @@ youngling iAmTheSenate ( ) {
 	_i = 2 + 32 + 3 ~endor
 	clones _y = 2 + _i ~endor
 }
+
+
+
+
+youngling iAmTheSenate ( ) { 
+	clones _x = 42 + 3 + 2 ~endor
+	clones _z ~endor
+	_z = 42 + 3 + _x ~endor
+	clones _i ~endor
+ 	doit ( _i = 0 ~endor _i < 10 + 3 + _x ~endor _i = _i + 1 ~endor ) {
+ 		
+
+
+ 		_i = _i + 1 ~endor 
+ 		helloThere ( _i ) ~endor 
+ 	} 
+
+ 	do ( 42 > off  ) {
+
+ 	}
+}

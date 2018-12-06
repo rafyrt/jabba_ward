@@ -6,12 +6,13 @@
 package jabbaward;
 
 import java.util.ArrayList;
+
 /**
  *
  * @author Rafael, Felipe & Cesar
  */
 
-public class LexicalAnalyzer{
+public class LexicalAnalyzer {
 
     static ArrayList<Symbol> Analyse(String[] list) {
         ArrayList<Symbol> tabla = new ArrayList<>();
@@ -30,35 +31,30 @@ public class LexicalAnalyzer{
             current = list[i];
             CompareRegex compareTest = new CompareRegex();
             categoria = compareTest.Comparator(current);
-            if((c.equals(categoria)||w.equals(categoria)) && notInCW == true){
+            if ((c.equals(categoria) || w.equals(categoria)) && notInCW == true) {
 
-                oneCW+=current;
+                oneCW += current;
                 notInCW = false;
-            }
-
-            
-            else if((c.equals(categoria)||w.equals(categoria)) && notInCW == false){
+            } else if ((c.equals(categoria) || w.equals(categoria)) && notInCW == false) {
                 newString = " " + current;
-                oneCW+=newString;
+                oneCW += newString;
                 notInCW = true;
                 current = oneCW;
                 oneCW = "";
                 num++;
                 entry = new Symbol(num, categoria, current);
                 tabla.add(entry);
-            }
-            
-            else if (notInCW == false){
+            } else if (notInCW == false) {
                 newString = " " + current;
-                oneCW+=newString;
-            }
-            else{
-            num++;
-            entry = new Symbol(num, categoria, current);
-            tabla.add(entry);
+                oneCW += newString;
+            } else {
+
+                entry = new Symbol(num, categoria, current);
+                num++;
+                tabla.add(entry);
             }
         }
-        tabla.add(new Symbol(tabla.size()+1, "EOF", "EOF"));
+        tabla.add(new Symbol(tabla.size() + 1, "EOF", "EOF"));
         return tabla;
     }
 //        private static String defineCategory(String valor){

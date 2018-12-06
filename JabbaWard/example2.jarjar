@@ -1,11 +1,13 @@
 youngling iAmTheSenate ( ) { 
 	clones _i ~endor
- 	doit ( _i = 0 ~endor _i < 10 ~endor _i = _i + 1 ~endor ) {
- 		_i = _i + 1 ~endor 
- 		helloThere ( _i ) ~endor 
- 	} 
+	clones _x = 3 + 5 ~endor
+ 	doit ( _i = 0 ~endor _i < 10 ~endor _i = _i + 1 ~endor ) {	 	
 
- 	do ( 42 > off  ) {
+ 		do ( 1 < 3 ) { 
+ 			_i = 3 ~endor
+ 		}
 
  	}
 }
+
+

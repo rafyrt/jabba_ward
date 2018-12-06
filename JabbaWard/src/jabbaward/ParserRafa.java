@@ -300,7 +300,7 @@ public class ParserRafa {
                         if (isEOL()) {
 
                             padre = temp;
-                            tree.add(new Nodo(++id, nivel, "EOL", padre));
+                            tree.add(new Nodo(++id, nivel, "EOL", padre, posicion));
                             posicion++;
                             if (isAsign()) {
                                 padre = temp;
@@ -361,7 +361,7 @@ public class ParserRafa {
             padre = temp;
             if (isID()) {
                 if (isEOL()) {
-                    tree.add(new Nodo(++id, nivel, "EOL", padre));
+                    tree.add(new Nodo(++id, nivel, "EOL", padre, posicion));
                     posicion++;
                     nivel--;
                 }
@@ -390,7 +390,7 @@ public class ParserRafa {
                 if (isComp()) {
                     padre = temp;
                     if (isEOL()) {
-                        tree.add(new Nodo(++id, nivel, "EOL", padre));
+                        tree.add(new Nodo(++id, nivel, "EOL", padre, posicion));
                         posicion++;
                         nivel--;
                         return true;
@@ -475,7 +475,7 @@ public class ParserRafa {
                         tree.add(nodo);
                         posicion++;
                         if (isEOL()) {
-                            tree.add(new Nodo(++id, nivel, "EOL", padre));
+                            tree.add(new Nodo(++id, nivel, "EOL", padre, posicion));
                             posicion++;
                             nivel--;
                             return true;

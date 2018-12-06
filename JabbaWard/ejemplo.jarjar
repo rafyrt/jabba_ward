@@ -1,0 +1,13 @@
+youngling iAmTheSenate ( ) { 
+	clones _x = 42 + 3 + 2 ~endor
+	clones _z ~endor
+	_z = 42 + 3 + _x ~endor
+	clones _i ~endor
+ 	doit ( _i = 0 ~endor _i < 10 + 3 + _x ~endor _i = _i + 69 ~endor ) {
+ 		
+ 		_x = _x + 1 ~endor 
+ 		do ( 42 > off  ) {
+
+ 		}
+ 	}
+}

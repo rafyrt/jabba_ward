@@ -1,51 +1,57 @@
 Tabla de Simbolos
 ENTRADA    CATEGORIA                 VALOR 
 -------    ---------                 ----- 
-1          palabra reservada         youngling 
-2          palabra reservada         iAmTheSenate 
-3          agrupador                 (     
-4          agrupador                 )     
-5          agrupador                 {     
-6          tipo de dato              clones 
-7          id                        _i    
-8          EOL                       ~endor 
-9          palabra reservada         doit  
-10         agrupador                 (     
-11         id                        _i    
-12         asignacion                =     
-13         clones                    0     
-14         EOL                       ~endor 
-15         id                        _i    
-16         comparacion aritmetica    <     
-17         clones                    10    
-18         EOL                       ~endor 
-19         id                        _i    
-20         asignacion                =     
-21         id                        _i    
-22         operador aritmetico       +     
-23         clones                    1     
-24         EOL                       ~endor 
-25         agrupador                 )     
-26         agrupador                 {     
+0          palabra reservada         youngling 
+1          palabra reservada         iAmTheSenate 
+2          agrupador                 (     
+3          agrupador                 )     
+4          agrupador                 {     
+5          tipo de dato              clones 
+6          id                        _i    
+7          EOL                       ~endor 
+8          tipo de dato              clones 
+9          id                        _x    
+10         asignacion                =     
+11         clones                    3     
+12         operador aritmetico       +     
+13         clones                    5     
+14         operador aritmetico       +     
+15         clones                    5     
+16         operador aritmetico       +     
+17         clones                    5     
+18         operador aritmetico       -     
+19         clones                    69    
+20         EOL                       ~endor 
+21         palabra reservada         doit  
+22         agrupador                 (     
+23         id                        _i    
+24         asignacion                =     
+25         clones                    0     
+26         EOL                       ~endor 
 27         id                        _i    
-28         asignacion                =     
-29         id                        _i    
-30         operador aritmetico       +     
-31         clones                    1     
-32         EOL                       ~endor 
-33         palabra reservada         helloThere 
-34         agrupador                 (     
-35         id                        _i    
-36         agrupador                 )     
-37         EOL                       ~endor 
-38         agrupador                 }     
+28         comparacion aritmetica    <     
+29         clones                    10    
+30         EOL                       ~endor 
+31         id                        _i    
+32         asignacion                =     
+33         id                        _i    
+34         operador aritmetico       +     
+35         clones                    1     
+36         EOL                       ~endor 
+37         agrupador                 )     
+38         agrupador                 {     
 39         palabra reservada         do    
 40         agrupador                 (     
-41         clones                    42    
-42         comparacion aritmetica    >     
-43         lightsaber                off   
+41         clones                    1     
+42         comparacion aritmetica    <     
+43         clones                    3     
 44         agrupador                 )     
 45         agrupador                 {     
-46         agrupador                 }     
-47         agrupador                 }     
-48         EOF                       EOF   
+46         id                        _i    
+47         asignacion                =     
+48         clones                    3     
+49         EOL                       ~endor 
+50         agrupador                 }     
+51         agrupador                 }     
+52         agrupador                 }     
+54         EOF                       EOF   
