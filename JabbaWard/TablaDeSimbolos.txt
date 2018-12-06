@@ -9,62 +9,69 @@ ENTRADA    CATEGORIA                 VALOR
 5          tipo de dato              clones 
 6          id                        _i    
 7          EOL                       ~endor 
-8          tipo de dato              clones 
-9          id                        _x    
+8          tipo de dato              wookie 
+9          id                        _y    
 10         asignacion                =     
-11         clones                    3     
-12         operador aritmetico       +     
-13         clones                    5     
-14         operador aritmetico       +     
-15         lightsaber                on    
-16         EOL                       ~endor 
-17         palabra reservada         doit  
-18         agrupador                 (     
-19         id                        _i    
-20         asignacion                =     
-21         clones                    0     
-22         EOL                       ~endor 
-23         id                        _i    
-24         comparacion aritmetica    <     
-25         clones                    10    
-26         EOL                       ~endor 
-27         id                        _i    
-28         asignacion                =     
-29         id                        _i    
-30         operador aritmetico       +     
-31         clones                    1     
-32         EOL                       ~endor 
-33         agrupador                 )     
-34         agrupador                 {     
-35         palabra reservada         do    
-36         agrupador                 (     
-37         clones                    1     
-38         comparacion aritmetica    <     
-39         clones                    6     
-40         agrupador                 )     
-41         agrupador                 {     
-42         id                        _i    
-43         asignacion                =     
-44         clones                    3     
-45         EOL                       ~endor 
-46         palabra reservada         helloThere 
-47         agrupador                 (     
-49         wookie                    " Rafa " 
-49         agrupador                 )     
-50         EOL                       ~endor 
-51         agrupador                 }     
-52         palabra reservada         fett  
-53         agrupador                 (     
-54         id                        _1    
-55         comparacion aritmetica    <     
-56         clones                    3     
-57         agrupador                 )     
-58         agrupador                 {     
-59         id                        _i    
-60         asignacion                =     
-61         clones                    4     
-62         EOL                       ~endor 
-63         agrupador                 }     
-64         agrupador                 }     
-65         agrupador                 }     
-67         EOF                       EOF   
+12         wookie                    " z " 
+12         EOL                       ~endor 
+13         tipo de dato              clones 
+14         id                        _x    
+15         asignacion                =     
+16         clones                    3     
+17         EOL                       ~endor 
+18         palabra reservada         doit  
+19         agrupador                 (     
+20         id                        _i    
+21         asignacion                =     
+22         clones                    0     
+23         EOL                       ~endor 
+24         id                        _i    
+25         comparacion aritmetica    <     
+26         clones                    10    
+27         EOL                       ~endor 
+28         id                        _i    
+29         asignacion                =     
+30         id                        _i    
+31         operador aritmetico       +     
+32         clones                    1     
+33         EOL                       ~endor 
+34         agrupador                 )     
+35         agrupador                 {     
+36         palabra reservada         do    
+37         agrupador                 (     
+38         clones                    1     
+39         comparacion aritmetica    <     
+40         clones                    6     
+41         operador aritmetico       +     
+42         clones                    2     
+43         operador aritmetico       +     
+44         clones                    2     
+45         operador aritmetico       +     
+46         clones                    666   
+47         agrupador                 )     
+48         agrupador                 {     
+49         id                        _i    
+50         asignacion                =     
+51         clones                    3     
+52         EOL                       ~endor 
+53         palabra reservada         helloThere 
+54         agrupador                 (     
+56         wookie                    " Rafa " 
+56         agrupador                 )     
+57         EOL                       ~endor 
+58         agrupador                 }     
+59         palabra reservada         fett  
+60         agrupador                 (     
+61         id                        _1    
+62         comparacion aritmetica    <     
+63         clones                    3     
+64         agrupador                 )     
+65         agrupador                 {     
+66         id                        _i    
+67         asignacion                =     
+68         clones                    4     
+69         EOL                       ~endor 
+70         agrupador                 }     
+71         agrupador                 }     
+72         agrupador                 }     
+74         EOF                       EOF   
