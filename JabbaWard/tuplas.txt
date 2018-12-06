@@ -1,0 +1,6 @@
+(decl,  ,  , _i)
+(asig, 0,  , _i)
+(suma, _i, 1, T0)
+(asig, T0,  , _i)
+(suma, _i, 1, T1)
+(asig, T1,  , _i)

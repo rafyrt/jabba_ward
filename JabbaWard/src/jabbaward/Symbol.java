@@ -26,6 +26,10 @@ public class Symbol{
         return categoria;
     }
 
+//    public getSym(int num){
+//        return Symbol.
+//    }
+    
     public String getValor(){
         return valor;
     }

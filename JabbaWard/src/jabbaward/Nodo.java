@@ -47,6 +47,10 @@ public class Nodo {
         return this.id;
     }
     
+    public int getSimbolo(){
+        return this.simbolo;
+    }
+    
     public int getNivel(){
         return this.nivel;
     }

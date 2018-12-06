@@ -5,3 +5,21 @@ youngling iAmTheSenate ( ) {
  		helloThere ( _i ) ~endor 
  	} 
 }
+
+
+
+youngling iAmTheSenate ( ) { 
+	clones _i ~endor
+ 	doit ( _i = 0 ~endor _i < 10 ~endor _i = _i + 1 ~endor ) {
+ 		_i = _i + 1 ~endor 
+ 		helloThere ( _i ) ~endor 
+ 	} 
+}
+
+
+
+youngling iAmTheSenate ( ) { 
+	clones _i ~endor
+	_i = 2 + 32 + 3 ~endor
+	clones _y = 2 + _i ~endor
+}

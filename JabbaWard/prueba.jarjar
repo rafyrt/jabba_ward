@@ -1,6 +1,6 @@
 youngling iAmTheSenate ( ) { 
-	clones _i = 0 ~endor
-	doit ( _i = 0 ~endor _i < 10 ~endor _i = _i + 1 ~endor ) { 
+	clones _i ~endor
+	doit ( _i = 0 ~endor _i + 1 < 10 ~endor _i = _i + 1 ~endor ) { 
 		do ( _i < 10 ) { 
 	 		_i = _i + 1 ~endor 
 	 		helloThere ( _i ) ~endor 

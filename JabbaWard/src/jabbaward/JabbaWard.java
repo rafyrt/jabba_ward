@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 
 /**
  *
- * @author Rafael  
+ * @author Rafael
  */
 public class JabbaWard {
 
@@ -26,13 +26,14 @@ public class JabbaWard {
      */
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
-          String filePath = ".\\prueba.jarjar";
+        String filePath = ".\\example2.jarjar";
+//        String filePath = ".\\prueba.jarjar";
 //          String filePath = ".\\noExam.jarjar";
 //        String filePath = ".\\test4.jarjar";
 //        String filePath = ".\\test3.jarjar";
 //        String filePath = ".\\test2.jarjar";
         //String filePath = ".\\t1.jarjar";
-        String completeFile = fileReader( filePath );
+        String completeFile = fileReader(filePath);
         String[] list = listCreator(completeFile);
         ArrayList<Symbol> tablaSimbolos = new ArrayList<>();
         tablaSimbolos = LexicalAnalyzer.Analyse(list);
@@ -42,16 +43,44 @@ public class JabbaWard {
         String format = "%-10s %-25s %-5s %n";
         writer.printf(format, "ENTRADA", "CATEGORIA", "VALOR");
         writer.printf(format, "-------", "---------", "-----");
-        for (int i = 0; i < tablaSimbolos.size(); i++){
+        for (int i = 0; i < tablaSimbolos.size(); i++) {
             writer.printf(format, tablaSimbolos.get(i).getEntrada(), tablaSimbolos.get(i).getCategoria(), tablaSimbolos.get(i).getValor());
         }
         writer.close();
         ParserRafa pr = new ParserRafa(tablaSimbolos);
-         System.out.println(pr.isS());
-         ArrayList<Nodo> tree = pr.tree;
-        for (Nodo nodo : tree) {
-         System.out.println(nodo.print());
+        //System.out.println(pr.isS());
+        
+        ArrayList<Tuplas> tupi;
+        tupi = pr.parser();
+        ArrayList<Nodo> tree = pr.tree;
+        
+       
+        
+        
+//        for (Nodo nodo : tree) {
+//            System.out.println(nodo.print());
+//        }
+        PrintWriter writer3 = new PrintWriter(new FileWriter(".\\nodos.txt"));
+
+        for (int i = 0; i < tree.size(); i++) {
+//            writer3.println(tree.get(i).getId() + "\t" + tree.get(i).getTexto() + "\t\t" + tree.get(i).getNivel());
+            writer3.printf(format, tree.get(i).getId(), tree.get(i).getTexto(), tree.get(i).getSimbolo());
+//            writer3.printf(format, tree.get(i).getId(), tree.get(i).getTexto(), tree.get(i).getNivel(), tree.get(i).getSimbolo());
+            //writer3.println();
         }
+
+        writer3.close();
+        
+        //System.out.println("TUPLASSSS " +tupi.get(0).getTuplas());
+        
+        
+        PrintWriter writer5 = new PrintWriter(new FileWriter(".\\tuplas.txt"));
+        for (int i = 0; i < tupi.size(); i++) {
+            writer5.printf(tupi.get(i).getTuplas()+"\n");
+        }
+        writer5.close();
+        
+        
         /*Parser p = new Parser();
         ArrayList<Nodo> tree = new ArrayList<Nodo>();
         tree = p.getParsed(tablaSimbolos);
@@ -88,23 +117,19 @@ public class JabbaWard {
         }*/
     }
 
-    private static String fileReader(String filePath)
-    {
+    private static String fileReader(String filePath) {
         StringBuilder contentBuilder = new StringBuilder();
- 
-        try (Stream<String> stream = Files.lines( Paths.get(filePath), StandardCharsets.UTF_8))
-        {
+
+        try (Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)) {
             stream.forEach(s -> contentBuilder.append(s).append("\n"));
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return contentBuilder.toString();
     }
-    
-    private static String[] listCreator(String completeFile){
-        String[] tokenList = completeFile.trim().split("\\s+"); 
+
+    private static String[] listCreator(String completeFile) {
+        String[] tokenList = completeFile.trim().split("\\s+");
         return tokenList;
     }
 }
