@@ -1,23 +1,2 @@
 (decl,  ,  , _i)
-(suma, 3, 5, T1)
-(suma, T1, 5, T2)
-(suma, T2, 5, T3)
-(resta, T3, 69, T4)
-(declasig, T4,  , _x)
-(asig, 0,  , _i)
-(lessThan, _i, 10, T5){true|false}
-(if_true, T5,  , L1)
-(if_false, T5,  , L2)
-L1
-(lessThan, 1, T6, T7){true|false}
-(if_true, T7,  , L3)
-(if_false, T7,  , L4)
-L3
-(asig, 3,  , _i)
-L4
-(suma, _i, 1, T6)
-(asig, T6,  , _i)
-(lessThan, _i, 10, T5){true|false}
-(if_true, T5,  , L1)
-(if_false, T5,  , L2)
-L2
+(declasig, null,  , _x)

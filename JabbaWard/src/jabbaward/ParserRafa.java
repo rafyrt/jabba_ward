@@ -461,7 +461,7 @@ public class ParserRafa {
         if (symbols.get(posicion).getValor().equals("helloThere")) {
             nivel++;
             posicion++;
-            nodo = new Nodo(++id, nivel, "hlloThere", padre);
+            nodo = new Nodo(++id, nivel, "helloThere", padre);
             tree.add(nodo);
             if (symbols.get(posicion).getValor().equals("(")) {
                 nodo = new Nodo(++id, nivel, "(", padre);

@@ -45,6 +45,7 @@ public class Secciones {
 
     public void addTuplas(ArrayList<Tuplas> tupas) {
         this.tupis = tupas;
+        this.tupis2 = new ArrayList<Tuplas>();
     }
 
     public void addTuplas(ArrayList<Tuplas> tupas, ArrayList<Tuplas> tupas2) {

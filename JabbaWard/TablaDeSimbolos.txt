@@ -16,42 +16,55 @@ ENTRADA    CATEGORIA                 VALOR
 12         operador aritmetico       +     
 13         clones                    5     
 14         operador aritmetico       +     
-15         clones                    5     
-16         operador aritmetico       +     
-17         clones                    5     
-18         operador aritmetico       -     
-19         clones                    69    
-20         EOL                       ~endor 
-21         palabra reservada         doit  
-22         agrupador                 (     
+15         lightsaber                on    
+16         EOL                       ~endor 
+17         palabra reservada         doit  
+18         agrupador                 (     
+19         id                        _i    
+20         asignacion                =     
+21         clones                    0     
+22         EOL                       ~endor 
 23         id                        _i    
-24         asignacion                =     
-25         clones                    0     
+24         comparacion aritmetica    <     
+25         clones                    10    
 26         EOL                       ~endor 
 27         id                        _i    
-28         comparacion aritmetica    <     
-29         clones                    10    
-30         EOL                       ~endor 
-31         id                        _i    
-32         asignacion                =     
-33         id                        _i    
-34         operador aritmetico       +     
-35         clones                    1     
-36         EOL                       ~endor 
-37         agrupador                 )     
-38         agrupador                 {     
-39         palabra reservada         do    
-40         agrupador                 (     
-41         clones                    1     
-42         comparacion aritmetica    <     
-43         clones                    3     
-44         agrupador                 )     
-45         agrupador                 {     
-46         id                        _i    
-47         asignacion                =     
-48         clones                    3     
-49         EOL                       ~endor 
-50         agrupador                 }     
+28         asignacion                =     
+29         id                        _i    
+30         operador aritmetico       +     
+31         clones                    1     
+32         EOL                       ~endor 
+33         agrupador                 )     
+34         agrupador                 {     
+35         palabra reservada         do    
+36         agrupador                 (     
+37         clones                    1     
+38         comparacion aritmetica    <     
+39         clones                    6     
+40         agrupador                 )     
+41         agrupador                 {     
+42         id                        _i    
+43         asignacion                =     
+44         clones                    3     
+45         EOL                       ~endor 
+46         palabra reservada         helloThere 
+47         agrupador                 (     
+49         wookie                    " Rafa " 
+49         agrupador                 )     
+50         EOL                       ~endor 
 51         agrupador                 }     
-52         agrupador                 }     
-54         EOF                       EOF   
+52         palabra reservada         fett  
+53         agrupador                 (     
+54         id                        _1    
+55         comparacion aritmetica    <     
+56         clones                    3     
+57         agrupador                 )     
+58         agrupador                 {     
+59         id                        _i    
+60         asignacion                =     
+61         clones                    4     
+62         EOL                       ~endor 
+63         agrupador                 }     
+64         agrupador                 }     
+65         agrupador                 }     
+67         EOF                       EOF   

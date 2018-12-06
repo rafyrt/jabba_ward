@@ -391,6 +391,11 @@ public class Semantic {
                         System.out.println("Variable " + valAsig.get(i).valor + " no esta inicializada y no puede utilizarse en operaciones.");
                         error();
                         error = true;
+                    } else if (yaDeclarada(valAsig.get(i).valor)) {
+                        System.out.println("---ERROR SEMANTICO---");
+                        System.out.println("Variable " + valAsig.get(i).valor + " no esta declarada y no puede utilizarse en operaciones.");
+                        error();
+                        error = true;
                     }
                 }
             }
@@ -568,6 +573,7 @@ public class Semantic {
             asigValor = vt;
         } else {
             asigValor = valores.get(0).getValor();
+            vt = asigValor;
         }
     }
 
@@ -740,10 +746,10 @@ public class Semantic {
                 asigValores("clones", tuplas);
 //                variable = new Var(varId, symbols.get(posSimb).getValor(), symbols.get(posSimb + 1).getValor(), false);
 //                variables.add(variable);
-                if (error == false) {
+                //if (error == false) {
                     tupla = new Tuplas("asig", asigValor, symbols.get(posSimb).getValor());
                     tuplas.add(tupla);
-                }
+                //}
 
             } else if (asigTipo.equals(symbols.get(posSimb + 2).getCategoria())) {
 //                variable = new Var(varId, symbols.get(posSimb).getValor(), symbols.get(posSimb - 1).getValor(), true);
@@ -873,7 +879,7 @@ public class Semantic {
         posSimb++;
         posSimb++;
         //System.out.println("2da VT " + getSimboloValor(posSimb));
-        if (!(getSimboloCategoria(posSimb + 1).equals("EOL"))) {
+        if (!(getSimboloCategoria(posSimb + 1).equals("EOL"))||getSimboloCategoria(posSimb + 1).equals("agrupador")) {
             //System.out.println("2da VT " + getSimboloValor(posSimb));
             compValores(asigTipo, tupi);
             segundaVt = vt;
@@ -1040,9 +1046,66 @@ public class Semantic {
     }
 
     private void isPrint() {
+        posTemp = pos;
+        posTemp++;
+        tupla = new Tuplas("print", tree.get(posTemp).texto, "", "");
+        tuplas.add(tupla);
     }
 
     private void isWhile() {
+        while (!(tree.get(posTemp).texto.equals("("))) {
+            posTemp++;
+            getCurrentTextTemporal();
+        }
+        pos = posTemp;
+
+        posSimb = tree.get(posTemp).simbolo;
+        System.out.println("SIMBOLOOOOOOOO");
+        System.out.println(getSimboloValor(posSimb));
+        posSimb++;
+        System.out.println(getSimboloValor(posSimb));
+        System.out.println(getSimboloCategoria(posSimb));
+        asigTipo = getSimboloCategoria(posSimb);
+        comp(tuplas);
+
+        tupla = new Tuplas("if_true", recentVT, seccionesL.get(indexL).L);
+        tuplas.add(tupla);
+        tuplasCond.add(tupla);
+        indexL++;
+        tupla = new Tuplas("if_false", recentVT, seccionesL.get(indexL).L);
+        tuplas.add(tupla);
+        tuplasCond.add(tupla);
+
+        while ((!getSimboloValor(posSimb).equals("{"))) {
+            posSimb++;
+            getCurrentTextTemporal();
+        }
+
+        while ((!tree.get(posTemp).texto.equals("{"))) {
+            posTemp++;
+            getCurrentTextTemporal();
+        }
+        //pos = posTemp;
+        seccionesL.get(indexL).addTuplas(new ArrayList<Tuplas>(tuplasCond));
+        //indexL++;
+        pos = posTemp;
+        System.out.println("POSICION GENERAL");
+        System.out.println(pos);
+        for (int i = 0; i < seccionesL.size(); i++) {
+            if (seccionesL.get(i).getPosNodo() == tree.get(posTemp).id) {
+                tupla = new Tuplas(seccionesL.get(i).L);
+
+                System.out.println("SECCION");
+                System.out.println(seccionesL.get(i).L);
+            }
+
+        }
+        tuplas.add(tupla);
+        pos++;
+        //CREATE THE TWO LS's
+     
+        tuplasFor.clear();
+        tuplasCond.clear();
     }
 
     private String getSimboloValor(int p) {
