@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class Semantic {
 
+    boolean end = false;
     String recentVT;
     boolean error = false;
     ArrayList<Symbol> symbols;
@@ -136,7 +137,11 @@ public class Semantic {
 //            System.out.println(tuplas.get(i).getTuplas());
 //        }
 //        
-
+        if (end) {
+            tuplas.clear();
+            tupla = new Tuplas("error::::", "0", "0", "0");
+            tuplas.add(tupla);
+        }
         // NOTA: ERROR BORRA TODAS LAS TUPLAS EN CASO DE QUE EXISTA UN ERROR
         // EL BOOLEANO SE HACE VERDADERO EN CUANDO APARECE UN ERROR
         // Y SE BORRAN LAS TUPLAS PARA QUE EL DOCUMENTO DE TUPLAS APAREZCA
@@ -145,11 +150,7 @@ public class Semantic {
         // MIENTRAS ESTARA COMENTADO OUT - DE MODO QUE LAS TUPLAS 
         // NOS DEN INFORMACION SI HAY UN ERROR EN NUESTRO CODIGO
         // --------------------------------------------------------------------
-//        if (error) {
-//            tuplas.clear();
-//            tupla = new Tuplas("error::::", 0 , 0);
-//            tuplas.add(tupla);
-//        }
+
         // --------------------------------------------------------------------
         return tuplas;
     }
@@ -185,36 +186,36 @@ public class Semantic {
             isFor();
             //do this
         } else if (currentText.equals("IF")) {
-            System.out.println("IF IF IF IF IF");
+//            System.out.println("IF IF IF IF IF");
             isIf();
             //do this
         } else if (currentText.equals("PRINT")) {
-            System.out.println("PRINT PRINT PRINT");
+//            System.out.println("PRINT PRINT PRINT");
             isPrint();
             //do this
         } else if (currentText.equals("WHILE")) {
-            System.out.println("WHILE WHILE WHILE");
+//            System.out.println("WHILE WHILE WHILE");
             isWhile();
             //do this
         } else if (currentText.equals("{")) {
             // openBracket stuff
         } else if (currentText.equals("}")) {
-            System.out.println("WUBBA LUBBA DUB DUB!!!");
-            System.out.println(posTemp);
-            System.out.println(tree.get(posTemp).id);
+//            System.out.println("WUBBA LUBBA DUB DUB!!!");
+//            System.out.println(posTemp);
+//            System.out.println(tree.get(posTemp).id);
             for (int i = 0; i < seccionesL.size(); i++) {
-                System.out.println("ENTRA FOR 1");
+//                System.out.println("ENTRA FOR 1");
                 if (seccionesL.get(i).getPosNodo() == tree.get(posTemp).id) {
 //                    System.out.println(seccionesL.get(0).L);
 //                    System.out.println(seccionesL.get(i).getTupis().isEmpty());
 //                    System.out.println(seccionesL.get(i).getTupis());
-                    System.out.println("TAMANO DE TUPIS");
-                    System.out.println(seccionesL.get(i).getTupis().size());
+//                    System.out.println("TAMANO DE TUPIS");
+//                    System.out.println(seccionesL.get(i).getTupis().size());
 //                    System.out.println(seccionesL.get(i).getTupis().get(0).getOp());
                     if (!(seccionesL.get(i).getTupis().isEmpty())) {
                         for (int j = 0; j < seccionesL.get(i).getTupis().size(); j++) {
-                            System.out.println("ENTRA FOR 2");
-                            System.out.println(seccionesL.get(i).getTupis().get(j).getOp());
+//                            System.out.println("ENTRA FOR 2");
+//                            System.out.println(seccionesL.get(i).getTupis().get(j).getOp());
                             //tupla = new Tuplas(seccionesL.get(i).getTupis().get(j).getOp(), seccionesL.get(i).getTupis().get(j).operando1, seccionesL.get(i).getTupis().get(j).operando2, seccionesL.get(i).getTupis().get(j).resultado);
                             tupla = new Tuplas(seccionesL.get(i).getTupis().get(j).getTuplas());
                             tuplas.add(tupla);
@@ -223,8 +224,8 @@ public class Semantic {
 
                     if (!(seccionesL.get(i).getTupis2().isEmpty())) {
                         for (int j = 0; j < seccionesL.get(i).getTupis2().size(); j++) {
-                            System.out.println("ENTRA FOR 2");
-                            System.out.println(seccionesL.get(i).getTupis2().get(j).getOp());
+//                            System.out.println("ENTRA FOR 2");
+//                            System.out.println(seccionesL.get(i).getTupis2().get(j).getOp());
 //                            tupla = new Tuplas(seccionesL.get(i).getTupis2().get(j).getOp(), seccionesL.get(i).getTupis2().get(j).operando1, seccionesL.get(i).getTupis2().get(j).operando2, seccionesL.get(i).getTupis2().get(j).resultado);
                             tupla = new Tuplas(seccionesL.get(i).getTupis2().get(j).getTuplas());
                             tuplas.add(tupla);
@@ -244,7 +245,7 @@ public class Semantic {
             // closeBracket stuff
         } else {
             //wtf?
-            System.out.println("ALGO ESTAS HACIENDO MAL WEY!!!");
+
         }
     }
 
@@ -403,8 +404,8 @@ public class Semantic {
             pemdas(simbAsig, tupi);
 
         } else {
-//            System.out.println("---ERROR SEMANTICO---");
-//            System.out.println("Los valores deben de corresponder al mismo tipo de dato al que se desa asignar.");
+            System.out.println("---ERROR SEMANTICO---");
+            System.out.println("Los valores deben de corresponder al mismo tipo de dato al que se desa asignar, ademas de estar inicializadas.");
             error();
             error = true;
         }
@@ -442,8 +443,8 @@ public class Semantic {
             pemdas(simbAsig, tupi);
 
         } else {
-//            System.out.println("---ERROR SEMANTICO---");
-//            System.out.println("Los valores deben de corresponder al mismo tipo de dato al que se desa asignar.");
+            System.out.println("---ERROR SEMANTICO---");
+            System.out.println("L123os valores deben de corresponder al mismo tipo de dato al que se desa asignar, ademas de estar inicializadas.");
             error();
             error = true;
         }
@@ -453,11 +454,15 @@ public class Semantic {
 //    }
 
     private boolean isSameType(ArrayList<Symbol> valores, String tipo) {
+
         for (int i = 0; i < valores.size(); i++) {
-            if (valores.get(i).getCategoria().equals(asigTipo)) {
-                //
+            if (valores.get(i).getCategoria().equals(tipo)) {
+                return true;
+//
             } else if (valores.get(i).getCategoria().equals("id")) {
+//                System.out.println("VALORES");
                 for (int j = 0; j < variables.size(); j++) {
+//                    System.out.println(valores.get(i).getValor());
                     if (valores.get(i).getValor().equals(variables.get(j).getName())) {
                         if (variables.get(j).getType().equals(tipo)) {
                             if (variables.get(j).getVar().equals(null)) {
@@ -476,6 +481,11 @@ public class Semantic {
                             error();
                             return false;
                         }
+                    } else if (valores.get(i).getCategoria().equals(tipo)) {
+                        System.out.println("---ERROR SEMANTICO---");
+                        System.out.println("El valor " + valores.get(i).getValor() + " no es mismo tipo.");
+                        error();
+                        return false;
                     } else {
 //                        System.out.println("---ERROR SEMANTICO---");
 //                        System.out.println("Variable " + valores.get(i).getValor() + " no ha sido declarada.");
@@ -485,6 +495,8 @@ public class Semantic {
                 }
                 //System.out.println("EL ID SALE COMO " + valores.get(i).getCategoria());
             } else {
+//                System.out.println("---ERROR SEMANTICO---");
+//                error();
                 return false;
             }
 
@@ -718,6 +730,7 @@ public class Semantic {
     private void error() {
         pos = tree.size();
         error = true;
+        end = true;
     }
 
     private String obtenTipo(String id) {
@@ -747,8 +760,8 @@ public class Semantic {
 //                variable = new Var(varId, symbols.get(posSimb).getValor(), symbols.get(posSimb + 1).getValor(), false);
 //                variables.add(variable);
                 //if (error == false) {
-                    tupla = new Tuplas("asig", asigValor, symbols.get(posSimb).getValor());
-                    tuplas.add(tupla);
+                tupla = new Tuplas("asig", asigValor, symbols.get(posSimb).getValor());
+                tuplas.add(tupla);
                 //}
 
             } else if (asigTipo.equals(symbols.get(posSimb + 2).getCategoria())) {
@@ -841,6 +854,7 @@ public class Semantic {
             posSimbTemp++;
         }
         //}
+
         if (isSameType(valAsig, tipo)) {
             for (int i = 0; i < valAsig.size(); i++) {
                 if ("id".equals(valAsig.get(i).categoria)) {
@@ -857,8 +871,8 @@ public class Semantic {
             pemdas(simbAsig, tupi);
 
         } else {
-//            System.out.println("---ERROR SEMANTICO---");
-//            System.out.println("Los valores deben de corresponder al mismo tipo de dato al que se desa asignar.");
+            System.out.println("---ERROR SEMANTICO---");
+            System.out.println("L11os valores deben de corresponder al mismo tipo de dato al que se desa asignar, ademas de estar inicializadas.");
             error();
             error = true;
         }
@@ -869,6 +883,7 @@ public class Semantic {
         String primeraVt;
         String segundaVt;
         //System.out.println("1era VT " + getSimboloValor(posSimb));
+        System.out.println(asigTipo);
         if (!(getSimboloCategoria(posSimb + 1).equals("comparacion aritmetica"))) {
             compValores(asigTipo, tupi);
             primeraVt = vt;
@@ -879,7 +894,7 @@ public class Semantic {
         posSimb++;
         posSimb++;
         //System.out.println("2da VT " + getSimboloValor(posSimb));
-        if (!(getSimboloCategoria(posSimb + 1).equals("EOL"))||getSimboloCategoria(posSimb + 1).equals("agrupador")) {
+        if (!(getSimboloCategoria(posSimb + 1).equals("EOL")) || getSimboloCategoria(posSimb + 1).equals("agrupador")) {
             //System.out.println("2da VT " + getSimboloValor(posSimb));
             compValores(asigTipo, tupi);
             segundaVt = vt;
@@ -945,11 +960,10 @@ public class Semantic {
         //tupla = new Tuplas("if_false", recentVT, seccionesL.get(indexL).L);
         //tuplasFor.add(tupla);
         // tuplasCond.add(tupla);
-        System.out.println("TUPLAS EN FOR");
-        for (int i = 0; i < tuplasFor.size(); i++) {
-            System.out.println(tuplasFor.get(i).getTuplas());
-        }
-
+//        System.out.println("TUPLAS EN FOR");
+//        for (int i = 0; i < tuplasFor.size(); i++) {
+//            System.out.println(tuplasFor.get(i).getTuplas());
+//        }
         //ArrayList<Tuplas> tupitas = new ArrayList<Tuplas>;
         seccionesL.get(indexL).addTuplas(new ArrayList<Tuplas>(tuplasFor), new ArrayList<Tuplas>(tuplasCond));
         //seccionesL.get(indexL).addTuplas(new ArrayList<Tuplas>(tuplasCond));
@@ -970,23 +984,23 @@ public class Semantic {
             getCurrentTextTemporal();
         }
         pos = posTemp;
-        System.out.println("POSICION GENERAL");
-        System.out.println(pos);
+        // System.out.println("POSICION GENERAL");
+        //System.out.println(pos);
         //pepepepepe;
 
         for (int i = 0; i < seccionesL.size(); i++) {
             if (seccionesL.get(i).getPosNodo() == tree.get(posTemp).id) {
                 tupla = new Tuplas(seccionesL.get(i).L);
 
-                System.out.println("SECCION");
-                System.out.println(seccionesL.get(i).L);
+//                System.out.println("SECCION");
+//                System.out.println(seccionesL.get(i).L);
             }
 
         }
         tuplas.add(tupla);
 
         //CREATE THE TWO LS's
-        System.out.println(getSimboloValor(posSimb));
+//        System.out.println(getSimboloValor(posSimb));
         tuplasFor.clear();
         tuplasCond.clear();
     }
@@ -999,12 +1013,22 @@ public class Semantic {
         pos = posTemp;
 
         posSimb = tree.get(posTemp).simbolo;
-        System.out.println("SIMBOLOOOOOOOO");
-        System.out.println(getSimboloValor(posSimb));
+//        System.out.println("SIMBOLOOOOOOOO");
+//        System.out.println(getSimboloValor(posSimb));
         posSimb++;
-        System.out.println(getSimboloValor(posSimb));
-        System.out.println(getSimboloCategoria(posSimb));
+//        System.out.println(getSimboloValor(posSimb));
+//        System.out.println(getSimboloCategoria(posSimb));
         asigTipo = getSimboloCategoria(posSimb);
+        if (asigTipo.equals("id")) {
+            for (int i = 0; i < variables.size(); i++) {
+                if (getSimboloValor(posSimb).equals(variables.get(i).name)) {
+                    asigTipo = variables.get(i).type;
+                    System.out.println("TIPO TIPO TIPO");
+                    System.out.println(asigTipo);
+                    i = variables.size();
+                }
+            }
+        }
         comp(tuplas);
 
         tupla = new Tuplas("if_true", recentVT, seccionesL.get(indexL).L);
@@ -1024,23 +1048,23 @@ public class Semantic {
             getCurrentTextTemporal();
         }
         pos = posTemp;
-        System.out.println("POSICION GENERAL");
-        System.out.println(pos);
+//        System.out.println("POSICION GENERAL");
+//        System.out.println(pos);
         //pepepepepe;
 
         for (int i = 0; i < seccionesL.size(); i++) {
             if (seccionesL.get(i).getPosNodo() == tree.get(posTemp).id) {
                 tupla = new Tuplas(seccionesL.get(i).L);
 
-                System.out.println("SECCION");
-                System.out.println(seccionesL.get(i).L);
+//                System.out.println("SECCION");
+//                System.out.println(seccionesL.get(i).L);
             }
 
         }
         tuplas.add(tupla);
 
         //CREATE THE TWO LS's
-        System.out.println(getSimboloValor(posSimb));
+        //System.out.println(getSimboloValor(posSimb));
         tuplasFor.clear();
         tuplasCond.clear();
     }
@@ -1060,11 +1084,11 @@ public class Semantic {
         pos = posTemp;
 
         posSimb = tree.get(posTemp).simbolo;
-        System.out.println("SIMBOLOOOOOOOO");
-        System.out.println(getSimboloValor(posSimb));
+//        System.out.println("SIMBOLOOOOOOOO");
+//        System.out.println(getSimboloValor(posSimb));
         posSimb++;
-        System.out.println(getSimboloValor(posSimb));
-        System.out.println(getSimboloCategoria(posSimb));
+//        System.out.println(getSimboloValor(posSimb));
+//        System.out.println(getSimboloCategoria(posSimb));
         asigTipo = getSimboloCategoria(posSimb);
         comp(tuplas);
 
@@ -1089,21 +1113,21 @@ public class Semantic {
         seccionesL.get(indexL).addTuplas(new ArrayList<Tuplas>(tuplasCond));
         //indexL++;
         pos = posTemp;
-        System.out.println("POSICION GENERAL");
-        System.out.println(pos);
+//        System.out.println("POSICION GENERAL");
+//        System.out.println(pos);
         for (int i = 0; i < seccionesL.size(); i++) {
             if (seccionesL.get(i).getPosNodo() == tree.get(posTemp).id) {
                 tupla = new Tuplas(seccionesL.get(i).L);
 
-                System.out.println("SECCION");
-                System.out.println(seccionesL.get(i).L);
+//                System.out.println("SECCION");
+//                System.out.println(seccionesL.get(i).L);
             }
 
         }
         tuplas.add(tupla);
         pos++;
         //CREATE THE TWO LS's
-     
+
         tuplasFor.clear();
         tuplasCond.clear();
     }

@@ -1,9 +1,10 @@
 youngling iAmTheSenate ( ) { 
 	clones _i ~endor
-	clones _x = 3 + 5 + on ~endor
+	wookie _y = " z " ~endor
+	clones _x = 3 ~endor
  	doit ( _i = 0 ~endor _i < 10 ~endor _i = _i + 1 ~endor ) {	 	
 
- 		do ( 1 < 6 ) { 
+ 		do ( 1 < 6 + 2 + 2 + 666 ) { 
  			_i = 3 ~endor
  			helloThere ( " Rafa " ) ~endor
  		}
