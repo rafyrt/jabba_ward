@@ -19,59 +19,74 @@ ENTRADA    CATEGORIA                 VALOR
 15         asignacion                =     
 16         clones                    3     
 17         EOL                       ~endor 
-18         palabra reservada         doit  
+18         palabra reservada         helloThere 
 19         agrupador                 (     
-20         id                        _i    
-21         asignacion                =     
-22         clones                    0     
-23         EOL                       ~endor 
-24         id                        _i    
-25         comparacion aritmetica    <     
-26         clones                    10    
-27         EOL                       ~endor 
-28         id                        _i    
-29         asignacion                =     
-30         id                        _i    
-31         operador aritmetico       +     
-32         clones                    1     
-33         EOL                       ~endor 
-34         agrupador                 )     
-35         agrupador                 {     
-36         palabra reservada         do    
-37         agrupador                 (     
-38         id                        _x    
-39         comparacion aritmetica    >=    
-40         clones                    6     
-41         operador aritmetico       +     
-42         clones                    2     
-43         operador aritmetico       +     
-44         clones                    2     
-45         operador aritmetico       +     
-46         clones                    666   
-47         agrupador                 )     
-48         agrupador                 {     
-49         id                        _i    
-50         asignacion                =     
-51         clones                    3     
-52         EOL                       ~endor 
-53         palabra reservada         helloThere 
-54         agrupador                 (     
-56         wookie                    " You were the chosen one " 
-56         agrupador                 )     
+21         wookie                    " Let the wookie win " 
+21         agrupador                 )     
+22         EOL                       ~endor 
+23         palabra reservada         doit  
+24         agrupador                 (     
+25         id                        _i    
+26         asignacion                =     
+27         clones                    0     
+28         EOL                       ~endor 
+29         id                        _i    
+30         comparacion aritmetica    <     
+31         clones                    10    
+32         EOL                       ~endor 
+33         id                        _i    
+34         asignacion                =     
+35         id                        _i    
+36         operador aritmetico       +     
+37         clones                    1     
+38         EOL                       ~endor 
+39         agrupador                 )     
+40         agrupador                 {     
+41         palabra reservada         do    
+42         agrupador                 (     
+43         id                        _x    
+44         comparacion aritmetica    >=    
+45         clones                    6     
+46         operador aritmetico       +     
+47         clones                    2     
+48         operador aritmetico       +     
+49         clones                    2     
+50         operador aritmetico       +     
+51         clones                    666   
+52         agrupador                 )     
+53         agrupador                 {     
+54         id                        _i    
+55         asignacion                =     
+56         clones                    3     
 57         EOL                       ~endor 
-58         agrupador                 }     
-59         palabra reservada         fett  
-60         agrupador                 (     
-61         id                        _x    
-62         comparacion aritmetica    IHateYou 
-63         clones                    3     
-64         agrupador                 )     
-65         agrupador                 {     
-66         id                        _i    
-67         asignacion                =     
-68         clones                    4     
-69         EOL                       ~endor 
-70         agrupador                 }     
-71         agrupador                 }     
-72         agrupador                 }     
-74         EOF                       EOF   
+58         palabra reservada         helloThere 
+59         agrupador                 (     
+61         wookie                    " You were the chosen one " 
+61         agrupador                 )     
+62         EOL                       ~endor 
+63         agrupador                 }     
+64         palabra reservada         fett  
+65         agrupador                 (     
+66         id                        _y    
+67         comparacion aritmetica    IHateYou 
+68         clones                    3     
+69         agrupador                 )     
+70         agrupador                 {     
+71         id                        _i    
+72         asignacion                =     
+73         clones                    4     
+74         EOL                       ~endor 
+75         agrupador                 }     
+76         palabra reservada         helloThere 
+77         agrupador                 (     
+79         wookie                    " Nooooooo " 
+79         agrupador                 )     
+80         EOL                       ~endor 
+81         palabra reservada         helloThere 
+82         agrupador                 (     
+83         clones                    3     
+84         agrupador                 )     
+85         EOL                       ~endor 
+86         agrupador                 }     
+87         agrupador                 }     
+89         EOF                       EOF   

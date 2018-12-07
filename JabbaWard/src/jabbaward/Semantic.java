@@ -454,10 +454,10 @@ public class Semantic {
 //    }
 
     private boolean isSameType(ArrayList<Symbol> valores, String tipo) {
-
+        boolean isSame = true;
         for (int i = 0; i < valores.size(); i++) {
             if (valores.get(i).getCategoria().equals(tipo)) {
-                return true;
+//                return true;
 //
             } else if (valores.get(i).getCategoria().equals("id")) {
 //                System.out.println("VALORES");
@@ -469,23 +469,27 @@ public class Semantic {
                                 System.out.println("---ERROR SEMANTICO---");
                                 System.out.println("Variable " + valores.get(i).getValor() + " no ha sido inicializada.");
                                 error();
-                                return false;
-                            } else {
+                                isSame = false;
+                            } else if (variables.get(j).getType().equals(tipo)) {
                                 //do something  
-
+                            } else {
+                                System.out.println("---ERROR SEMANTICO---");
+                                System.out.println("Variable " + variables.get(j).getVar() + " no es mismo tipo.");
+                                error();
+                                isSame = false;
                             }
 
                         } else {
                             System.out.println("---ERROR SEMANTICO---");
                             System.out.println("Variable " + valores.get(i).getValor() + " no es mismo tipo.");
                             error();
-                            return false;
+                            isSame = false;
                         }
                     } else if (valores.get(i).getCategoria().equals(tipo)) {
                         System.out.println("---ERROR SEMANTICO---");
                         System.out.println("El valor " + valores.get(i).getValor() + " no es mismo tipo.");
                         error();
-                        return false;
+                        isSame = false;
                     } else {
 //                        System.out.println("---ERROR SEMANTICO---");
 //                        System.out.println("Variable " + valores.get(i).getValor() + " no ha sido declarada.");
@@ -497,12 +501,12 @@ public class Semantic {
             } else {
 //                System.out.println("---ERROR SEMANTICO---");
 //                error();
-                return false;
+                isSame = false;
             }
 
         }
 
-        return true;
+        return isSame;
     }
 
     private ArrayList<Symbol> opArit(ArrayList<Symbol> valores, String valor, String nombre, ArrayList<Tuplas> tupi) {
@@ -842,8 +846,9 @@ public class Semantic {
         ArrayList<Symbol> valAsig = new ArrayList<Symbol>();
         ArrayList<Symbol> simbAsig = new ArrayList<Symbol>();
         posSimbTemp = posSimb;
-        //posSimbTemp++;
-
+//        //posSimbTemp++;
+//        System.out.println(tipo);
+//        System.out.println(tipo);
         //if (getValT().equals("=")) {
         //posSimbTemp++;
         while (!(getCatT().equals("EOL") || (getCatT().equals("agrupador")) || (getCatT().equals("comparacion aritmetica")))) {
@@ -872,7 +877,7 @@ public class Semantic {
 
         } else {
             System.out.println("---ERROR SEMANTICO---");
-            System.out.println(tipo);
+            
             System.out.println("Los valores deben de corresponder al mismo tipo de dato al que se desa asignar, ademas de estar inicializadas.");
             error();
             error = true;
@@ -1091,8 +1096,11 @@ public class Semantic {
 
     private void isPrint() {
         posTemp = pos;
-        posTemp++;
-        tupla = new Tuplas("print", tree.get(posTemp).texto, "", "");
+
+        posSimb = tree.get(posTemp + 1).simbolo;
+        //System.out.println(posSimb+1);
+
+        tupla = new Tuplas("print", getSimboloValor(posSimb + 1), "", "");
         tuplas.add(tupla);
     }
 

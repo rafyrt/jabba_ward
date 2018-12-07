@@ -2,6 +2,7 @@ youngling iAmTheSenate ( ) {
 	clones _i ~endor
 	wookie _y = " -wookie sounds- " ~endor
 	clones _x = 3 ~endor
+	helloThere ( " Let the wookie win " ) ~endor
  	doit ( _i = 0 ~endor _i < 10 ~endor _i = _i + 1 ~endor ) {	 	
 
  		do ( _x >= 6 + 2 + 2 + 666 ) { 
@@ -13,7 +14,8 @@ youngling iAmTheSenate ( ) {
  			_i = 4 ~endor
  		}
 
-
+ 		helloThere ( " Nooooooo " ) ~endor
+ 		helloThere ( 3 ) ~endor 		
  	}
 }
 
