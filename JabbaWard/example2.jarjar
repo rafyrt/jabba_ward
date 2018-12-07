@@ -1,15 +1,15 @@
 youngling iAmTheSenate ( ) { 
 	clones _i ~endor
-	wookie _y = " z " ~endor
+	wookie _y = " -wookie sounds- " ~endor
 	clones _x = 3 ~endor
  	doit ( _i = 0 ~endor _i < 10 ~endor _i = _i + 1 ~endor ) {	 	
 
- 		do ( 1 < 6 + 2 + 2 + 666 ) { 
+ 		do ( _x >= 6 + 2 + 2 + 666 ) { 
  			_i = 3 ~endor
- 			helloThere ( " Rafa " ) ~endor
+ 			helloThere ( " You were the chosen one " ) ~endor
  		}
 
- 		fett ( _1 < 3 ) { 
+ 		fett ( _x IHateYou 3 ) { 
  			_i = 4 ~endor
  		}
 

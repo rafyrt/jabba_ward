@@ -79,7 +79,7 @@
 78         comp                      -1    
 79         calc                      -1    
 80         var                       -1    
-81         Constant                  38    
+81         ID                        38    
 82         comp_arit                 39    
 83         calc                      -1    
 84         var                       -1    

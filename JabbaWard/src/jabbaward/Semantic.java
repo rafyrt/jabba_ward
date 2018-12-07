@@ -128,11 +128,11 @@ public class Semantic {
                 rules();
             }
         }
-        System.out.println("VARIABLES");
-        for (int i = 0; i < variables.size(); i++) {
-            System.out.println(variables.get(i).getVar());
-        }
-//        System.out.println("TUPLALALALALAALA");
+//        System.out.println("VARIABLES");
+//        for (int i = 0; i < variables.size(); i++) {
+//            System.out.println(variables.get(i).getVar());
+//        }
+////        System.out.println("TUPLALALALALAALA");
 //        for (int i = 0; i < tuplas.size(); i++) {
 //            System.out.println(tuplas.get(i).getTuplas());
 //        }
@@ -426,7 +426,7 @@ public class Semantic {
             }
             posSimbTemp++;
         }
-        //}
+        //
         if (isSameType(valAsig, tipo)) {
             for (int i = 0; i < valAsig.size(); i++) {
                 if ("id".equals(valAsig.get(i).categoria)) {
@@ -444,7 +444,7 @@ public class Semantic {
 
         } else {
             System.out.println("---ERROR SEMANTICO---");
-            System.out.println("L123os valores deben de corresponder al mismo tipo de dato al que se desa asignar, ademas de estar inicializadas.");
+            System.out.println("Los valores deben de corresponder al mismo tipo de dato al que se desa asignar, ademas de estar inicializadas.");
             error();
             error = true;
         }
@@ -872,9 +872,28 @@ public class Semantic {
 
         } else {
             System.out.println("---ERROR SEMANTICO---");
-            System.out.println("L11os valores deben de corresponder al mismo tipo de dato al que se desa asignar, ademas de estar inicializadas.");
+            System.out.println(tipo);
+            System.out.println("Los valores deben de corresponder al mismo tipo de dato al que se desa asignar, ademas de estar inicializadas.");
             error();
             error = true;
+        }
+    }
+
+    private String dameCompArit(String compi) {
+        if (compi.equals("<")) {
+            return "lessThan";
+        } else if (compi.equals("<=")) {
+            return "lessThanOrEqual";
+        } else if (compi.equals(">")) {
+            return "greaterThan";
+        } else if (compi.equals(">=")) {
+            return "greaterThanOrEqual";
+        } else if (compi.equals("YouWereLikeMyBrother")) {
+            return "equal";
+        } else if (compi.equals("IHateYou")) {
+            return "diff";
+        } else {
+            return "error";
         }
     }
 
@@ -883,15 +902,16 @@ public class Semantic {
         String primeraVt;
         String segundaVt;
         //System.out.println("1era VT " + getSimboloValor(posSimb));
-        System.out.println(asigTipo);
+//        System.out.println(asigTipo);
         if (!(getSimboloCategoria(posSimb + 1).equals("comparacion aritmetica"))) {
             compValores(asigTipo, tupi);
             primeraVt = vt;
         } else {
             primeraVt = getSimboloValor(posSimb);
         }
-
         posSimb++;
+        String compArit = dameCompArit(getSimboloValor(posSimb));
+
         posSimb++;
         //System.out.println("2da VT " + getSimboloValor(posSimb));
         if (!(getSimboloCategoria(posSimb + 1).equals("EOL")) || getSimboloCategoria(posSimb + 1).equals("agrupador")) {
@@ -903,7 +923,7 @@ public class Semantic {
         }
         recentVT = nuevaVT();
         //if (error == false) {
-        tupla = new Tuplas("lessThan", primeraVt, segundaVt, recentVT, true);
+        tupla = new Tuplas(compArit, primeraVt, segundaVt, recentVT, true);
         tuplasCond.add(tupla);
         tuplas.add(tupla);
     }
@@ -998,7 +1018,7 @@ public class Semantic {
 
         }
         tuplas.add(tupla);
-
+        //indexL++;
         //CREATE THE TWO LS's
 //        System.out.println(getSimboloValor(posSimb));
         tuplasFor.clear();
@@ -1023,8 +1043,8 @@ public class Semantic {
             for (int i = 0; i < variables.size(); i++) {
                 if (getSimboloValor(posSimb).equals(variables.get(i).name)) {
                     asigTipo = variables.get(i).type;
-                    System.out.println("TIPO TIPO TIPO");
-                    System.out.println(asigTipo);
+//                    System.out.println("TIPO TIPO TIPO");
+//                    System.out.println(asigTipo);
                     i = variables.size();
                 }
             }
@@ -1062,7 +1082,7 @@ public class Semantic {
 
         }
         tuplas.add(tupla);
-
+        indexL++;
         //CREATE THE TWO LS's
         //System.out.println(getSimboloValor(posSimb));
         tuplasFor.clear();
@@ -1090,6 +1110,16 @@ public class Semantic {
 //        System.out.println(getSimboloValor(posSimb));
 //        System.out.println(getSimboloCategoria(posSimb));
         asigTipo = getSimboloCategoria(posSimb);
+        if (asigTipo.equals("id")) {
+            for (int i = 0; i < variables.size(); i++) {
+                if (getSimboloValor(posSimb).equals(variables.get(i).name)) {
+                    asigTipo = variables.get(i).type;
+//                    System.out.println("TIPO TIPO TIPO");
+//                    System.out.println(asigTipo);
+                    i = variables.size();
+                }
+            }
+        }
         comp(tuplas);
 
         tupla = new Tuplas("if_true", recentVT, seccionesL.get(indexL).L);
@@ -1127,7 +1157,7 @@ public class Semantic {
         tuplas.add(tupla);
         pos++;
         //CREATE THE TWO LS's
-
+        indexL++;
         tuplasFor.clear();
         tuplasCond.clear();
     }

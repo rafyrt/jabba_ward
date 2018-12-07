@@ -12,7 +12,7 @@ ENTRADA    CATEGORIA                 VALOR
 8          tipo de dato              wookie 
 9          id                        _y    
 10         asignacion                =     
-12         wookie                    " z " 
+12         wookie                    " -wookie sounds- " 
 12         EOL                       ~endor 
 13         tipo de dato              clones 
 14         id                        _x    
@@ -39,8 +39,8 @@ ENTRADA    CATEGORIA                 VALOR
 35         agrupador                 {     
 36         palabra reservada         do    
 37         agrupador                 (     
-38         clones                    1     
-39         comparacion aritmetica    <     
+38         id                        _x    
+39         comparacion aritmetica    >=    
 40         clones                    6     
 41         operador aritmetico       +     
 42         clones                    2     
@@ -56,14 +56,14 @@ ENTRADA    CATEGORIA                 VALOR
 52         EOL                       ~endor 
 53         palabra reservada         helloThere 
 54         agrupador                 (     
-56         wookie                    " Rafa " 
+56         wookie                    " You were the chosen one " 
 56         agrupador                 )     
 57         EOL                       ~endor 
 58         agrupador                 }     
 59         palabra reservada         fett  
 60         agrupador                 (     
-61         id                        _1    
-62         comparacion aritmetica    <     
+61         id                        _x    
+62         comparacion aritmetica    IHateYou 
 63         clones                    3     
 64         agrupador                 )     
 65         agrupador                 {     
